@@ -306,7 +306,8 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #include <malloc.h>      /* may want to remove this line */
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
-typedef  unsigned char uchar;
+#include "uchar.h"
+//typedef  unsigned char uchar;
 typedef  struct {int x,y,info, dx, dy, I;} CORNER_LIST[MAX_CORNERS];
 
 /* }}} */
@@ -1064,9 +1065,7 @@ uchar *mp;
 /* }}} */
 /* {{{ susan_edges(in,r,sf,max_no,out) */
 
-susan_edges(in,r,mid,bp,max_no,x_size,y_size)
-  uchar *in, *bp, *mid;
-  int   *r, max_no, x_size, y_size;
+susan_edges(uchar *in, int *r, uchar *mid, uchar *bp, int max_no, int x_size, int y_size)
 {
 float z;
 int   do_symmetry, i, j, m, n, a, b, x, y, w;
