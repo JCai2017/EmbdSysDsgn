@@ -15,7 +15,7 @@ behavior Main(void)//(i_receiver start, i_receiver in_image2edges, i_sender in_d
 
   setup_brightness_lut sbl(bp);
 //  susan_edges se(bp, in_image2edges, r, mid_edges2thin, in_edges2draw);
-//  susan_thin st(r, mid_edges2thin, mid_thin2draw);.
+//  susan_thin st(r, mid_edges2thin, mid_thin2draw);
 //  edge_draw ed(mid_thin2draw, in_edges2draw, in_draw2image);
   
   int main(void)
