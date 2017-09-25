@@ -28,7 +28,7 @@ behavior susan_edges(i_receiver bp_receiver, i_receiver in_image2edges, i_sender
     {
       bp_receiver.receive(&bp[k], 1);
     } 
-    for(k = 0; k < x_size * y_size; i++)
+    for(k = 0; k < x_size * y_size; k++)
     {
       in_image2edges.receive(&in_[k], 1);    
     }    
