@@ -301,6 +301,7 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include "setup_brightness_lut.h"
 #include <sys/file.h>    /* may want to remove this line */
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
@@ -465,29 +466,29 @@ int i, size = 76 * 95,
 /* }}} */
 /* {{{ setup_brightness_lut(bp,thresh,form) */
 
-void setup_brightness_lut(bp,thresh,form)
-  uchar **bp;
-  int   thresh, form;
-{
-int   k;
-float temp;
+// void setup_brightness_lut(bp,thresh,form)
+//   uchar **bp;
+//   int   thresh, form;
+// {
+// int   k;
+// float temp;
 
-  //Removed Malloc
-  uchar tmpArr[516];
-  *bp=tmpArr;
-  *bp=*bp+258;
+//   //Removed Malloc
+//   uchar tmpArr[516];
+//   *bp=tmpArr;
+//   *bp=*bp+258;
 
-  for(k=-256;k<257;k++)
-  {
-    temp=((float)k)/((float)thresh);
-    temp=temp*temp;
-    if (form==6)
-      temp=temp*temp*temp;
-    temp=100.0*exp(-temp);
-    *(*bp+k)= (uchar)temp;
-  }
+//   for(k=-256;k<257;k++)
+//   {
+//     temp=((float)k)/((float)thresh);
+//     temp=temp*temp;
+//     if (form==6)
+//       temp=temp*temp*temp;
+//     temp=100.0*exp(-temp);
+//     *(*bp+k)= (uchar)temp;
+//   }
   
-}
+// }
 
 /* }}} */
 /* {{{ susan principle */
