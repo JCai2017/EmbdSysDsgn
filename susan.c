@@ -1995,8 +1995,6 @@ CORNER_LIST corner_list;
     argindex++;
   }
 
-  if ( (principle==1) && (mode==0) )
-    mode=1;
 
 /* }}} */
   /* {{{ main processing */
@@ -2004,72 +2002,16 @@ CORNER_LIST corner_list;
   //Removed Malloc
   int r[x_size * y_size];
 
-  switch (mode)
-  {
-    case 0:
-      /* {{{ smoothing */
+  setup_brightness_lut(&bp,bt,6);
 
-      setup_brightness_lut(&bp,bt,2);
-      susan_smoothing(three_by_three,in,dt,x_size,y_size,bp);
-      break;
+  memset (mid,100,x_size * y_size); /* note not set to zero */
 
-/* }}} */
-    case 1:
-      /* {{{ edges */
+  susan_edges(in,r,mid,bp,max_no_edges,x_size,y_size);
 
-      setup_brightness_lut(&bp,bt,6);
+  susan_thin(r,mid,x_size,y_size);
 
-      if (principle)
-      {
-        if (three_by_three)
-          susan_principle_small(in,r,bp,max_no_edges,x_size,y_size);
-        else
-          susan_principle(in,r,bp,max_no_edges,x_size,y_size);
-        int_to_uchar(r,in,x_size*y_size);
-      }
-      else
-      {
-        memset (mid,100,x_size * y_size); /* note not set to zero */
-
-        if (three_by_three)
-          susan_edges_small(in,r,mid,bp,max_no_edges,x_size,y_size);
-        else
-          susan_edges(in,r,mid,bp,max_no_edges,x_size,y_size);
-        if(thin_post_proc)
-          susan_thin(r,mid,x_size,y_size);
-        edge_draw(in,mid,x_size,y_size,drawing_mode);
-      }
-
-      break;
-
-/* }}} */
-    case 2: 
-      /* {{{ corners */
-
-      setup_brightness_lut(&bp,bt,6);
-
-      if (principle)
-      {
-        susan_principle(in,r,bp,max_no_corners,x_size,y_size);
-        int_to_uchar(r,in,x_size*y_size);
-      }
-      else
-      {
-        if(susan_quick)
-          susan_corners_quick(in,r,bp,max_no_corners,corner_list,x_size,y_size);
-        else
-          susan_corners(in,r,bp,max_no_corners,corner_list,x_size,y_size);
-        corner_draw(in,corner_list,x_size,drawing_mode);
-      }
-
-      break;
-
-/* }}} */
-  }    
-
-/* }}} */
+  edge_draw(in,mid,x_size,y_size,drawing_mode);
 
   put_image(argv[2],in,x_size,y_size);
 }
 
-/* }}} */
