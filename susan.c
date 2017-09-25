@@ -306,6 +306,7 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #include "edge_draw.h"
 #include "uchar.h"
 #include "susan_thin.h"
+#include "put_image.h"
 #include <sys/file.h>    /* may want to remove this line */
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
@@ -416,29 +417,29 @@ int  tmp, tmpX, tmpY;
 /* {{{ put_image(filename,in,x_size,y_size) */
 
 //static size
-put_image(filename,in)
-  char filename [100],
-       *in;
-{
-FILE  *fd;
-int x_size = 76;
-int y_size = 95;
-#ifdef FOPENB
-  if ((fd=fopen(filename,"wb")) == NULL) 
-#else
-  if ((fd=fopen(filename,"w")) == NULL) 
-#endif
-    exit_error("Can't output image%s.\n",filename);
+// put_image(filename,in)
+//   char filename [100],
+//        *in;
+// {
+// FILE  *fd;
+// int x_size = 76;
+// int y_size = 95;
+// #ifdef FOPENB
+//   if ((fd=fopen(filename,"wb")) == NULL) 
+// #else
+//   if ((fd=fopen(filename,"w")) == NULL) 
+// #endif
+//     exit_error("Can't output image%s.\n",filename);
 
-  fprintf(fd,"P5\n");
-  fprintf(fd,"%d %d\n",x_size,y_size);
-  fprintf(fd,"255\n");
+//   fprintf(fd,"P5\n");
+//   fprintf(fd,"%d %d\n",x_size,y_size);
+//   fprintf(fd,"255\n");
   
-  if (fwrite(in,x_size*y_size,1,fd) != 1)
-    exit_error("Can't write image %s.\n",filename);
+//   if (fwrite(in,x_size*y_size,1,fd) != 1)
+//     exit_error("Can't write image %s.\n",filename);
 
-  fclose(fd);
-}
+//   fclose(fd);
+// }
 
 /* }}} */
 /* {{{ int_to_uchar(r,in,size) */
@@ -1689,7 +1690,7 @@ CORNER_LIST corner_list;
 
 /* }}} */
 
-  put_image(argv[2],in,x_size,y_size);
+  put_image(argv[2],in);
 }
 
 /* }}} */
