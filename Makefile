@@ -8,8 +8,8 @@ OUTFILE =  output_edge.pgm
 
 
 
-susan: susan.c Makefile
-	$(CC) -O4 -o susan susan.c -lm 
+susan: susan.c setup_brightness_lut.c Makefile
+	$(CC) -O4 -o susan susan.c setup_brightness_lut.c -lm 
 
 test:
 	./susan $(INFILE) $(OUTFILE) -e

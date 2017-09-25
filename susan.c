@@ -301,6 +301,7 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include "setup_brightness_lut.h"
 #include <sys/file.h>    /* may want to remove this line */
 #include <malloc.h>      /* may want to remove this line */
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
@@ -465,7 +466,8 @@ int i,
 /* }}} */
 /* {{{ setup_brightness_lut(bp,thresh,form) */
 
-void setup_brightness_lut(bp,thresh,form)
+/* EXTRACTED to setup_brightness_lut */
+/*void setup_brightness_lut(bp,thresh,form)
   uchar **bp;
   int   thresh, form;
 {
@@ -485,7 +487,7 @@ float temp;
     *(*bp+k)= (uchar)temp;
   }
   
-}
+}*/
 
 /* }}} */
 /* {{{ susan principle */
