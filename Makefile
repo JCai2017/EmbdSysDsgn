@@ -9,7 +9,7 @@ OUTFILE =  output_edge.pgm
 
 
 susan: susan.c Makefile
-	$(CC) -O4 -o susan susan.c get_image.c -lm 
+	$(CC) -O4 -o susan susan.c -lm 
 
 test:
 	./susan $(INFILE) $(OUTFILE) -e
