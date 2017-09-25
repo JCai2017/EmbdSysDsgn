@@ -303,6 +303,7 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #include <math.h>
 #include "setup_brightness_lut.h"
 #include "susan_edges.h"
+#include "edge_draw.h"
 #include "uchar.h"
 #include <sys/file.h>    /* may want to remove this line */
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
@@ -821,6 +822,7 @@ TOTAL_TYPE total;
 
 /* {{{ edge_draw(in,corner_list,drawing_mode) */
 //static size
+/*
 edge_draw(in,mid,drawing_mode)
   uchar *in, *mid;
   int drawing_mode;
@@ -830,7 +832,6 @@ uchar *inp, *midp;
 
   if (drawing_mode==0)
   {
-    /* mark 3x3 white block around each edge point */
     midp=mid;
     for (i=0; i<x_size*y_size; i++)
     {
@@ -845,7 +846,6 @@ uchar *inp, *midp;
     }
   }
 
-  /* now mark 1 black pixel at each edge point */
   midp=mid;
   for (i=0; i<x_size*y_size; i++)
   {
@@ -854,7 +854,7 @@ uchar *inp, *midp;
     midp++;
   }
 }
-
+*/
 /* }}} */
 /* {{{ susan_thin(r,mid,x_size,y_size) */
 
