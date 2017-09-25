@@ -1,9 +1,11 @@
 import "c_queue";
+import "c_double_handshake";
 
 #define Q_SIZE 5
 
-behavior Susan(i_receiver in_image2edges, i_sender in_draw2image) 
+behavior Susan(i_receiver start, i_receiver in_image2edges, i_sender in_draw2image) 
 {
+  c_double_handshake start;
   c_queue bp(Q_SIZE);
   c_queue in_edges2draw(Q_SIZE);
   c_queue r(Q_SIZE); 
