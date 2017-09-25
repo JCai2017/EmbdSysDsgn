@@ -22,7 +22,7 @@ behavior setup_brightness_lut(i_sender bp_sender)
         temp = temp*temp*temp;
       }
       temp = 100.0*exp(-temp);
-      bp[idx] = (uchar)temp; 
+      bp[idx+k] = (uchar)temp; 
     }
     for (k = 0; k < 516; k++){
       bp_sender.send(&bp[k], 1);
