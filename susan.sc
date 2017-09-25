@@ -22,9 +22,9 @@ behavior Main(void)//(i_receiver start, i_receiver in_image2edges, i_sender in_d
   {
     par{
       sbl.main();
-//      susan_edges.main();
-//      susan_thin.main();
-//      edge_draw.main();
+//      se.main();
+//      st.main();
+//      ed.main();
     }
    return 0;
   }
