@@ -2,11 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include "uchar.h"
 #include "susan_edges.h"
 
-susan_edges(in,r,mid,bp,max_no)
-  uchar *in, *bp, *mid;
-  int   *r, max_no;
+susan_edges(uchar *in, int *r, uchar *mid, uchar *bp, int max_no)
 {
 float z;
 int   do_symmetry, i, j, m, n, a, b, x, y, w;

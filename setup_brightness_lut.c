@@ -3,13 +3,14 @@
 #include <string.h>
 #include <math.h>
 #include <sys/file.h>
+#include "uchar.h"
 
-void setup_brightness_lut(unsigned char** bp, int thresh, int form)
+void setup_brightness_lut(uchar** bp, int thresh, int form)
 {
 int   k;
 float temp;
 
-  *bp=(unsigned char *)malloc(516);
+  *bp=(uchar *)malloc(516);
   *bp=*bp+258;
 
   for(k=-256;k<257;k++)
@@ -19,7 +20,7 @@ float temp;
     if (form==6)
       temp=temp*temp*temp;
     temp=100.0*exp(-temp);
-    *(*bp+k)= (unsigned char)temp;
+    *(*bp+k)= (uchar)temp;
   }
   
 }

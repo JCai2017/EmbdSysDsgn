@@ -1,1 +1,3 @@
-void setup_brightness_lut(unsigned char** bp, int thresh, int form);
+#include "uchar.h"
+
+void setup_brightness_lut( uchar** bp, int thresh, int form);
