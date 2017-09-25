@@ -4,7 +4,7 @@
 #include <sys/file.h>
 
 #include "get_image.h"
-
+#define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 
 /* {{{ get_image(filename,in,x_size,y_size) */
 
