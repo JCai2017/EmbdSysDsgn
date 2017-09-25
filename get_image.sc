@@ -9,7 +9,7 @@ import "c_queue";
 
 #define exit_error(IFB, IFC) {fprintf(stderr, IFB, IFC); exit(0); }
 
-behavior get_image(i_sender in_image2edges, i_receiver name)
+behavior get_image(i_sender in_image2edges, i_receiver name, i_sender start)
 {
     /* {{{ int getint(fp) derived from XV */
 
@@ -59,7 +59,7 @@ behavior get_image(i_sender in_image2edges, i_receiver name)
         break;
     }
 
-
+   start.send(&filename[0], 1);
 #ifdef FOPENB
       if ((fd=fopen(filename,"rb")) == NULL)
 #else
