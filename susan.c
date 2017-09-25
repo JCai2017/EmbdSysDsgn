@@ -1942,7 +1942,7 @@ CORNER_LIST corner_list;
   if (argc<3)
     usage();
 
-  get_image(argv[1],&in);
+  get_image(argv[1],in);
 
   /* {{{ look at options */
 
