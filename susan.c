@@ -301,13 +301,13 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include "setup_brightness_lut.h"
 #include <sys/file.h>    /* may want to remove this line */
-//#include <malloc.h>      /* may want to remove this line */
-
-#include "get_image.h"
+#include <malloc.h>      /* may want to remove this line */
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
-typedef  unsigned char uchar;
+#include "uchar.h"
+//typedef  unsigned char uchar;
 typedef  struct {int x,y,info, dx, dy, I;} CORNER_LIST[MAX_CORNERS];
 
 /* }}} */
@@ -336,11 +336,87 @@ usage()
 }
 
 /* }}} */
+/* {{{ get_image(filename,in,x_size,y_size) */
+
+/* {{{ int getint(fp) derived from XV */
+
+int getint(fd)
+  FILE *fd;
+{
+  int c, i;
+  char dummy[10000];
+
+  c = getc(fd);
+  while (1) /* find next integer */
+  {
+    if (c=='#')    /* if we're at a comment, read to end of line */
+      fgets(dummy,9000,fd);
+    if (c==EOF)
+      exit_error("Image %s not binary PGM.\n","is");
+    if (c>='0' && c<='9')
+      break;   /* found what we were looking for */
+    c = getc(fd);
+  }
+
+  /* we're at the start of a number, continue until we hit a non-number */
+  i = 0;
+  while (1) {
+    i = (i*10) + (c - '0');
+    c = getc(fd);
+    if (c==EOF) return (i);
+    if (c<'0' || c>'9') break;
+  }
+
+  return (i);
+}
+
+/* }}} */
+
+void get_image(filename,in,x_size,y_size)
+  char           filename[200];
+  unsigned char  **in;
+  int            *x_size, *y_size;
+{
+FILE  *fd;
+char header [100];
+int  tmp;
+
+#ifdef FOPENB
+  if ((fd=fopen(filename,"rb")) == NULL)
+#else
+  if ((fd=fopen(filename,"r")) == NULL)
+#endif
+    exit_error("Can't input image %s.\n",filename);
+
+  /* {{{ read header */
+
+  header[0]=fgetc(fd);
+  header[1]=fgetc(fd);
+  if(!(header[0]=='P' && header[1]=='5'))
+    exit_error("Image %s does not have binary PGM header.\n",filename);
+
+  *x_size = getint(fd);
+  *y_size = getint(fd);
+  tmp = getint(fd);
+
+/* }}} */
+
+  *in = (uchar *) malloc(*x_size * *y_size);
+
+  if (fread(*in,1,*x_size * *y_size,fd) == 0)
+    exit_error("Image %s is wrong size.\n",filename);
+
+  fclose(fd);
+}
+
+/* }}} */
 /* {{{ put_image(filename,in,x_size,y_size) */
 
-put_image(filename,in)
+put_image(filename,in,x_size,y_size)
   char filename [100],
        *in;
+  int  x_size,
+       y_size;
 {
 FILE  *fd;
 
@@ -352,10 +428,10 @@ FILE  *fd;
     exit_error("Can't output image%s.\n",filename);
 
   fprintf(fd,"P5\n");
-  fprintf(fd,"%d %d\n",76,95);
+  fprintf(fd,"%d %d\n",x_size,y_size);
   fprintf(fd,"255\n");
   
-  if (fwrite(in,76*95,1,fd) != 1)
+  if (fwrite(in,x_size*y_size,1,fd) != 1)
     exit_error("Can't write image %s.\n",filename);
 
   fclose(fd);
@@ -364,15 +440,13 @@ FILE  *fd;
 /* }}} */
 /* {{{ int_to_uchar(r,in,size) */
 
-int_to_uchar(r,in)
+int_to_uchar(r,in,size)
   uchar *in;
-  int   *r;
+  int   *r, size;
 {
 int i,
     max_r=r[0],
     min_r=r[0];
-
-  int size = 76 * 95;
 
   for (i=0; i<size; i++)
     {
@@ -393,16 +467,15 @@ int i,
 /* }}} */
 /* {{{ setup_brightness_lut(bp,thresh,form) */
 
-void setup_brightness_lut(bp,thresh,form)
+/* EXTRACTED to setup_brightness_lut */
+/*void setup_brightness_lut(bp,thresh,form)
   uchar **bp;
   int   thresh, form;
 {
 int   k;
 float temp;
 
-  //Removed Malloc
-  uchar tmpArr[516];
-  *bp=tmpArr;
+  *bp=(unsigned char *)malloc(516);
   *bp=*bp+258;
 
   for(k=-256;k<257;k++)
@@ -415,21 +488,19 @@ float temp;
     *(*bp+k)= (uchar)temp;
   }
   
-}
+}*/
 
 /* }}} */
 /* {{{ susan principle */
 
 /* {{{ susan_principle(in,r,bp,max_no,x_size,y_size) */
 
-susan_principle(in,r,bp,max_no)
+susan_principle(in,r,bp,max_no,x_size,y_size)
   uchar *in, *bp;
-  int   *r, max_no;
+  int   *r, max_no, x_size, y_size;
 {
 int   i, j, n;
 uchar *p,*cp;
-int x_size = 76;
-int y_size = 95;
 
   memset (r,0,x_size * y_size * sizeof(int));
 
@@ -498,15 +569,13 @@ int y_size = 95;
 /* }}} */
 /* {{{ susan_principle_small(in,r,bp,max_no,x_size,y_size) */
 
-susan_principle_small(in,r,bp,max_no)
+susan_principle_small(in,r,bp,max_no,x_size,y_size)
   uchar *in, *bp;
-  int   *r, max_no;
+  int   *r, max_no, x_size, y_size;
 {
 int   i, j, n;
 uchar *p,*cp;
 
-int x_size = 76;
-int y_size = 95;
   memset (r,0,x_size * y_size * sizeof(int));
 
   max_no = 730; /* ho hum ;) */
@@ -544,12 +613,11 @@ int y_size = 95;
 
 /* {{{ median(in,i,j,x_size) */
 
-uchar median(in,i,j)
+uchar median(in,i,j,x_size)
   uchar *in;
-  int   i, j;
+  int   i, j, x_size;
 {
 int p[8],k,l,tmp;
-int x_size = 76;
 
   p[0]=in[(i-1)*x_size+j-1];
   p[1]=in[(i-1)*x_size+j  ];
@@ -606,8 +674,8 @@ int   i, j;
 /* }}} */
 /* {{{ void susan_smoothing(three_by_three,in,dt,x_size,y_size,bp) */
 
-void susan_smoothing(three_by_three,in,dt,bp)
-  int   three_by_three;
+void susan_smoothing(three_by_three,in,dt,x_size,y_size,bp)
+  int   three_by_three, x_size, y_size;
   uchar *in, *bp;
   float dt;
 {
@@ -619,8 +687,7 @@ int   n_max, increment, mask_size,
 uchar *ip, *dp, *dpt, *cp, *out=in,
       *tmp_image;
 TOTAL_TYPE total;
-int x_size = 76;
-int y_size = 95;
+
 /* }}} */
 
   /* {{{ setup larger image and border sizes */
@@ -645,9 +712,7 @@ int y_size = 95;
     exit(0);
   }
 
-  //Removed Malloc
-  uchar tmpArr[(x_size + mask_size * 2)  * (y_size + mask_size * 2)];
-  tmp_image = tmpArr;
+  tmp_image = (uchar *) malloc( (x_size+mask_size*2) * (y_size+mask_size*2) );
   enlarge(&in,tmp_image,&x_size,&y_size,mask_size);
 
 /* }}} */
@@ -660,9 +725,7 @@ int y_size = 95;
 
   increment = x_size - n_max;
 
-  //Removed Malloc
-  unsigned char tmpArr2[n_max * n_max];
-  dp     = tmpArr2;
+  dp     = (unsigned char *)malloc(n_max*n_max);
   dpt    = dp;
   temp   = -(dt*dt);
 
@@ -752,15 +815,12 @@ int y_size = 95;
 
 /* {{{ edge_draw(in,corner_list,drawing_mode) */
 
-edge_draw(in,mid,drawing_mode)
+edge_draw(in,mid,x_size,y_size,drawing_mode)
   uchar *in, *mid;
-  int drawing_mode;
+  int x_size, y_size, drawing_mode;
 {
 int   i;
 uchar *inp, *midp;
-
-int x_size = 76;
-int y_size = 95;
 
   if (drawing_mode==0)
   {
@@ -795,9 +855,9 @@ int y_size = 95;
 /* only one pass is needed as i,j are decremented if necessary to go
    back and do bits again */
 
-susan_thin(r,mid)
+susan_thin(r,mid,x_size,y_size)
   uchar *mid;
-  int   *r;
+  int   *r, x_size, y_size;
 {
 int   l[9], centre, nlinks, npieces,
       b01, b12, b21, b10,
@@ -806,8 +866,6 @@ int   l[9], centre, nlinks, npieces,
       m, n, a, b, x, y, i, j;
 uchar *mp;
 
-int x_size = 76;
-int y_size = 95;
   for (i=4;i<y_size-4;i++)
     for (j=4;j<x_size-4;j++)
       if (mid[i*x_size+j]<8)
@@ -1007,16 +1065,12 @@ int y_size = 95;
 /* }}} */
 /* {{{ susan_edges(in,r,sf,max_no,out) */
 
-susan_edges(in,r,mid,bp,max_no)
-  uchar *in, *bp, *mid;
-  int   *r, max_no;
+susan_edges(uchar *in, int *r, uchar *mid, uchar *bp, int max_no, int x_size, int y_size)
 {
 float z;
 int   do_symmetry, i, j, m, n, a, b, x, y, w;
 uchar c,*p,*cp;
 
-int x_size = 76;
-int y_size = 95;
   memset (r,0,x_size * y_size * sizeof(int));
 
   for (i=3;i<y_size-3;i++)
@@ -1246,16 +1300,14 @@ int y_size = 95;
 /* }}} */
 /* {{{ susan_edges_small(in,r,sf,max_no,out) */
 
-susan_edges_small(in,r,mid,bp,max_no)
+susan_edges_small(in,r,mid,bp,max_no,x_size,y_size)
   uchar *in, *bp, *mid;
-  int   *r, max_no;
+  int   *r, max_no, x_size, y_size;
 {
 float z;
 int   do_symmetry, i, j, m, n, a, b, x, y, w;
 uchar c,*p,*cp;
 
-int x_size = 76;
-int y_size = 95;
   memset (r,0,x_size * y_size * sizeof(int));
 
   max_no = 730; /* ho hum ;) */
@@ -1381,15 +1433,14 @@ int y_size = 95;
 
 /* {{{ corner_draw(in,corner_list,drawing_mode) */
 
-corner_draw(in,corner_list,drawing_mode)
+corner_draw(in,corner_list,x_size,drawing_mode)
   uchar *in;
   CORNER_LIST corner_list;
-  int drawing_mode;
+  int x_size, drawing_mode;
 {
 uchar *p;
 int   n=0;
 
-int x_size = 76;
   while(corner_list[n].info != 7)
   {
     if (drawing_mode==0)
@@ -1412,22 +1463,20 @@ int x_size = 76;
 /* }}} */
 /* {{{ susan(in,r,sf,max_no,corner_list) */
 
-susan_corners(in,r,bp,max_no,corner_list)
+susan_corners(in,r,bp,max_no,corner_list,x_size,y_size)
   uchar       *in, *bp;
-  int         *r, max_no;
+  int         *r, max_no, x_size, y_size;
   CORNER_LIST corner_list;
 {
 int   n,x,y,sq,xx,yy,
-      i,j;
+      i,j,*cgx,*cgy;
 float divide;
 uchar c,*p,*cp;
-int x_size = 76;
-int y_size = 95;
 
   memset (r,0,x_size * y_size * sizeof(int));
 
-  int cgx[x_size * y_size];
-  int cgy[x_size * y_size];
+  cgx=(int *)malloc(x_size*y_size*sizeof(int));
+  cgy=(int *)malloc(x_size*y_size*sizeof(int));
 
   for (i=5;i<y_size-5;i++)
     for (j=5;j<x_size-5;j++) {
@@ -1688,21 +1737,22 @@ if(n==MAX_CORNERS){
       exit(1);
          }}}}
 corner_list[n].info=7;
+
+free(cgx);
+free(cgy);
+
 }
 
 /* }}} */
 /* {{{ susan_quick(in,r,sf,max_no,corner_list) */
 
-susan_corners_quick(in,r,bp,max_no,corner_list)
+susan_corners_quick(in,r,bp,max_no,corner_list,x_size,y_size)
   uchar       *in, *bp;
-  int         *r, max_no;
+  int         *r, max_no, x_size, y_size;
   CORNER_LIST corner_list;
 {
 int   n,x,y,i,j;
 uchar *p,*cp;
-
-int x_size = 76;
-int y_size = 95;
 
   memset (r,0,x_size * y_size * sizeof(int));
 
@@ -1920,10 +1970,10 @@ main(argc, argv)
 FILE   *ofp;
 char   filename [80],
        *tcp;
-uchar  in[76 * 95], *bp, 
-       mid[76 * 95];
+uchar  *in, *bp, *mid;
 float  dt=4.0;
-int    argindex=3,
+int    *r,
+       argindex=3,
        bt=20,
        principle=0,
        thin_post_proc=1,
@@ -1933,8 +1983,7 @@ int    argindex=3,
        max_no_corners=1850,
        max_no_edges=2650,
        mode = 0, i,
-       x_size = 76, 
-       y_size = 95;
+       x_size, y_size;
 CORNER_LIST corner_list;
 
 /* }}} */
@@ -1942,7 +1991,7 @@ CORNER_LIST corner_list;
   if (argc<3)
     usage();
 
-  get_image(argv[1],&in);
+  get_image(argv[1],&in,&x_size,&y_size);
 
   /* {{{ look at options */
 
@@ -1995,23 +2044,81 @@ CORNER_LIST corner_list;
     argindex++;
   }
 
+  if ( (principle==1) && (mode==0) )
+    mode=1;
 
 /* }}} */
   /* {{{ main processing */
 
-  //Removed Malloc
-  int r[x_size * y_size];
+  switch (mode)
+  {
+    case 0:
+      /* {{{ smoothing */
 
-  setup_brightness_lut(&bp,bt,6);
+      setup_brightness_lut(&bp,bt,2);
+      susan_smoothing(three_by_three,in,dt,x_size,y_size,bp);
+      break;
 
-  memset (mid,100,x_size * y_size); /* note not set to zero */
+/* }}} */
+    case 1:
+      /* {{{ edges */
 
-  susan_edges(in,r,mid,bp,max_no_edges,x_size,y_size);
+      r   = (int *) malloc(x_size * y_size * sizeof(int));
+      setup_brightness_lut(&bp,bt,6);
 
-  susan_thin(r,mid,x_size,y_size);
+      if (principle)
+      {
+        if (three_by_three)
+          susan_principle_small(in,r,bp,max_no_edges,x_size,y_size);
+        else
+          susan_principle(in,r,bp,max_no_edges,x_size,y_size);
+        int_to_uchar(r,in,x_size*y_size);
+      }
+      else
+      {
+        mid = (uchar *)malloc(x_size*y_size);
+        memset (mid,100,x_size * y_size); /* note not set to zero */
 
-  edge_draw(in,mid,x_size,y_size,drawing_mode);
+        if (three_by_three)
+          susan_edges_small(in,r,mid,bp,max_no_edges,x_size,y_size);
+        else
+          susan_edges(in,r,mid,bp,max_no_edges,x_size,y_size);
+        if(thin_post_proc)
+          susan_thin(r,mid,x_size,y_size);
+        edge_draw(in,mid,x_size,y_size,drawing_mode);
+      }
+
+      break;
+
+/* }}} */
+    case 2:
+      /* {{{ corners */
+
+      r   = (int *) malloc(x_size * y_size * sizeof(int));
+      setup_brightness_lut(&bp,bt,6);
+
+      if (principle)
+      {
+        susan_principle(in,r,bp,max_no_corners,x_size,y_size);
+        int_to_uchar(r,in,x_size*y_size);
+      }
+      else
+      {
+        if(susan_quick)
+          susan_corners_quick(in,r,bp,max_no_corners,corner_list,x_size,y_size);
+        else
+          susan_corners(in,r,bp,max_no_corners,corner_list,x_size,y_size);
+        corner_draw(in,corner_list,x_size,drawing_mode);
+      }
+
+      break;
+
+/* }}} */
+  }    
+
+/* }}} */
 
   put_image(argv[2],in,x_size,y_size);
 }
 
+/* }}} */

@@ -1,0 +1,1 @@
+void setup_brightness_lut(unsigned char** bp, int thresh, int form);
