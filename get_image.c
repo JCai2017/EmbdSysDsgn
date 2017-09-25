@@ -70,7 +70,7 @@ int  tmpx, tmpy, tmp;
 
 /* }}} */
 
-  if (fread(*in,1,76 * 95,fd) == 0)
+  if (fread(in,1,76 * 95,fd) == 0)
     exit_error("Image %s is wrong size.\n",filename);
 
   fclose(fd);
