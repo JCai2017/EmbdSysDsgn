@@ -4,14 +4,14 @@
 
 import "c_queue";
 import "c_handshake";
-// import "susan";
+import "susan";
 import "get_image";
 import "put_image";
 
 behavior Main(void)
 {
 
-	const unsigned long Q_SIZE = 50;
+	const unsigned long Q_SIZE = 76*100;
 
 	c_handshake start;
 	c_queue input(Q_SIZE);
@@ -19,7 +19,7 @@ behavior Main(void)
 	c_queue inputName(Q_SIZE);
 	c_queue outputName(Q_SIZE);
 
-    // susan s(start, input, output);
+        susan s(start, input, output);
 	get_image gi(input, inputName, start);
 	put_image pi(outputName, output);
 
@@ -36,18 +36,21 @@ behavior Main(void)
     		return(1);
     	}
 
-		while (*(argv[1] + i) != '\0'){
-			inputName.send(argv[1]+i, 1);
-			i += 1;
+		while (1){
+	  	  inputName.send(argv[1]+i, 1);
+                  if(*(argv[1] + i) == '\0')
+                    break;
+                  i += 1;
 		}
-	    while (*(argv[2] + j) != '\0'){
+	    while (1){
 	    	outputName.send(argv[2]+j, 1);
+                if(*(argv[2] + j) == '\0') break;
 	    	j += 1;
 	    }
 
     	par {
     		gi.main();
-    		// s.main();
+    		s.main();
     		pi.main();
     	}
     	return(0);

@@ -1,76 +1,31 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include "uchar.h"
-import "c_queue";
+#include "susan_edges.h"
 
-behavior susan_edges(i_receiver bp_receiver, i_receiver in_image2edges, i_sender r_sender, i_sender mid_edges2thin, i_sender in_edges2draw)
+susan_edges(uchar *in, int *r, uchar *mid, uchar *bp, int max_no)
 {
-  void main(void)
-  {
-    const int x_size = 76;
-    const int y_size = 95;
+float z;
+int   do_symmetry, i, j, m, n, a, b, x, y, w;
+uchar c,*p,*cp;
 
-    uchar in_[x_size* y_size]; 
-    int   r[x_size * y_size];
-    uchar mid[x_size * y_size];
-    uchar bp_arr[516];
-    uchar* bp;
-    int max_no = 2650;
-    int k;
-
-    float z;
-    int   do_symmetry, i, j, m, n, a, b, x, y, w;
-    uchar c;
-    uchar *p; 
-    uchar *cp;    
-
-    printf("susan_edges\n");
-
-    for(k = 0; k < 516; k++)
-    {
-      bp_receiver.receive(&bp_arr[k], 1);
-//printf("%x ", bp_arr[k]);
-    } 
-bp = bp_arr+258;
-//    for(k = 0; k < 258; k++)
-//    {
-//printf("%x ", *(bp - k));
-//    } 
-
-//printf("in values in susan edges\n");
-    for(k = 0; k < x_size * y_size; k++)
-    {
-      in_image2edges.receive(&in_[k], 1);    
-//printf("%d ", in_[k]);
-    }    
-
-//-----------------------------//
-
-//printf("size of %d\n", sizeof(int));
-
+int x_size = 76;
+int y_size = 95;
   memset (r,0,x_size * y_size * sizeof(int));
-  memset (mid, 100, x_size*y_size);
 
   for (i=3;i<y_size-3;i++)
     for (j=3;j<x_size-3;j++)
     {
       n=100;
-      p=in_ + (i-3)*x_size + j - 1;
-      cp=bp + in_[i*x_size+j];
+      p=in + (i-3)*x_size + j - 1;
+      cp=bp + in[i*x_size+j];
 
-      
-//printf("%x, %x, %x, %x, %x, %x, %x\n", n, *in_, *p, cp, *bp, *(cp-*p), in_[i*x_size+j]);
-      n+=*(cp-*p);
-      p++;
-//printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
-      n+=*(cp-*p);
-      p++;
-//printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
+      n+=*(cp-*p++);
+      n+=*(cp-*p++);
       n+=*(cp-*p);
       p+=x_size-3; 
-//printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
-
 
       n+=*(cp-*p++);
       n+=*(cp-*p++);
@@ -128,11 +83,11 @@ bp = bp_arr+258;
       {
         m=r[i*x_size+j];
         n=max_no - m;
-        cp=bp + in_[i*x_size+j];
+        cp=bp + in[i*x_size+j];
 
         if (n>600)
         {
-          p=in_ + (i-3)*x_size + j - 1;
+          p=in + (i-3)*x_size + j - 1;
           x=0;y=0;
 
           c=*(cp-*p++);x-=c;y-=3*c;
@@ -211,7 +166,7 @@ bp = bp_arr+258;
 
         if (do_symmetry==1)
 	{ 
-          p=in_ + (i-3)*x_size + j - 1;
+          p=in + (i-3)*x_size + j - 1;
           x=0; y=0; w=0;
 
           /*   |      \
@@ -282,27 +237,6 @@ bp = bp_arr+258;
         }
       }
     }
-   
+}
 
-//-------------//
-//printf("r values out susan edges\n");
-    for(k = 0; k < x_size * y_size; k++)
-    {
-      r_sender.send(&r[k], 4);    
-//printf("%d ", r[k]);
-    }    
-//printf("mid values out susan edges\n");
-    for(k = 0; k < x_size * y_size; k++)
-    {
-      mid_edges2thin.send(&mid[k], 1);    
-//printf("%d ", mid[k]);
-    }    
-//printf("in values out susan edges\n");
-    for(k = 0; k < x_size * y_size; k++)
-    {
-      in_edges2draw.send(&in_[k], 1);    
-//printf("%d ", in_[k]);
-    }    
-  }
 
-};

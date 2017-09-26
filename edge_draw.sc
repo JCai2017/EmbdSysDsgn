@@ -29,7 +29,7 @@ behavior edge_draw(i_receiver mid_thin2draw, i_receiver in_edges2draw, i_sender 
   }
   
 
-  printf("edges_draw\n");
+  printf("edge_draw\n");
   
     /* mark 3x3 white block around each edge point */
     midp=mid;
@@ -54,11 +54,11 @@ behavior edge_draw(i_receiver mid_thin2draw, i_receiver in_edges2draw, i_sender 
       midp++;
     }  
 
-//printf("in values in edge draw");
+//printf("in values out edge draw\n");
   for(k=0; k<x_size*y_size; k++)
   {
     in_draw2image.send(&in_[k], 1);
-//printf("%d", in[k]);
+//printf("%d ", in_[k]);
   }
     
     

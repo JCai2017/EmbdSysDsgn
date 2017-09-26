@@ -13,7 +13,7 @@ behavior put_image(i_receiver name_receiver, i_receiver in_receiver)
   FILE* fd;
   const int x_size = 76;
   const int y_size = 95; 
-  char vals[x_size*y_size];
+  uchar vals[x_size*y_size];
   char name[200];
   int i;
 

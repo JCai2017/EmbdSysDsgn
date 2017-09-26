@@ -26,6 +26,7 @@ behavior setup_brightness_lut(i_sender bp_sender)
     }
     for (k = 0; k < 516; k++){
       bp_sender.send(&bp[k], 1);
+//printf("%d ", bp[k]);
     }
   }
 };
