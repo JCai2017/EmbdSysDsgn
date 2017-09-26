@@ -17,12 +17,16 @@ behavior susan_thin(i_receiver rRec, i_receiver mid_edges2thin, i_sender mid_thi
       x_size = 76, y_size = 95;
     uchar *mp;
 
+//printf("r values in susan thin\n");
     for(i = 0; i < (76 * 95); i++){
       rRec.receive(&r[i], 1);
+//printf("%d ", r[i]);
     }
 
+//printf("mid values in susan thin\n");
     for(i = 0; i < (76 * 95); i++){
       mid_edges2thin.receive(&mid[i], 1);
+//printf("%d ", mid[i]);
     }
 
     for (i=4;i<y_size-4;i++)
@@ -217,8 +221,10 @@ behavior susan_thin(i_receiver rRec, i_receiver mid_edges2thin, i_sender mid_thi
 /* }}} */
       }
 
+//printf("mid values out susan thin\n");
     for(i = 0; i < (76 * 95); i ++){
       mid_thin2draw.send(&mid[i], 1);
+//printf("%d ", mid[i]);
     }
   }
 };

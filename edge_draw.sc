@@ -15,13 +15,17 @@ behavior edge_draw(i_receiver mid_thin2draw, i_receiver in_edges2draw, i_sender 
   uchar in_[x_size*y_size]; 
   uchar mid[x_size*y_size];
   
+//printf("mid values in edge draw");
   for(k=0; k<x_size*y_size; k++)
   {
     mid_thin2draw.receive(&mid[k], 1);
+//printf("%d", mid[k]);
   }
+//printf("in values in edge draw");
   for(k=0; k<x_size*y_size; k++)
   {
     in_edges2draw.receive(&in_[k], 1);
+//printf("%d", in[k]);
   }
   
 
@@ -50,9 +54,11 @@ behavior edge_draw(i_receiver mid_thin2draw, i_receiver in_edges2draw, i_sender 
       midp++;
     }  
 
+//printf("in values in edge draw");
   for(k=0; k<x_size*y_size; k++)
   {
     in_draw2image.send(&in_[k], 1);
+//printf("%d", in[k]);
   }
     
     
