@@ -1,0 +1,3 @@
+To run the included code, run make and make test to generate the necessary .sir files and execute the code.
+
+Running make clean removes .si, .sir, and .o files
