@@ -13,6 +13,11 @@ uchar c,*p,*cp;
 
 int x_size = 76;
 int y_size = 95;
+
+//in header
+//for(i =0 ; i < 76*95; i++)
+//printf("%d ", in[i]);
+
   memset (r,0,x_size * y_size * sizeof(int));
 
   for (i=3;i<y_size-3;i++)
@@ -237,6 +242,9 @@ int y_size = 95;
         }
       }
     }
+
+//for(i = 0; i < x_size*y_size; i++)
+//  printf("%d ", in[i]);
 }
 
 
