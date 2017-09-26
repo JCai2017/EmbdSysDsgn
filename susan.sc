@@ -1,9 +1,9 @@
 #include <stdio.h>
 import "c_queue";
-import "c_double_handshake";
+import "c_handshake";
 import "setup_brightness_lut";
 
-behavior Main(void)//(i_receiver start, i_receiver in_image2edges, i_sender in_draw2image) 
+behavior susan(i_receive start, i_receiver in_image2edges, i_sender in_draw2image)
 {
   const unsigned long Q_SIZE = 5;
 
@@ -18,7 +18,7 @@ behavior Main(void)//(i_receiver start, i_receiver in_image2edges, i_sender in_d
 //  susan_thin st(r, mid_edges2thin, mid_thin2draw);
 //  edge_draw ed(mid_thin2draw, in_edges2draw, in_draw2image);
   
-  int main(void)
+  void main(void)
   {
     par{
       sbl.main();
@@ -26,7 +26,6 @@ behavior Main(void)//(i_receiver start, i_receiver in_image2edges, i_sender in_d
 //      st.main();
 //      ed.main();
     }
-   return 0;
   }
 };
 
