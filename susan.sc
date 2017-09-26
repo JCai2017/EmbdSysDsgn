@@ -1,6 +1,5 @@
 #include <stdio.h>
 import "c_queue";
-import "c_double_handshake";
 import "setup_brightness_lut";
 
 behavior susan(i_receiver start, i_receiver in_image2edges, i_sender in_draw2image)
