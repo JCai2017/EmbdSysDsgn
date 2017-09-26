@@ -1,5 +1,5 @@
 $date
-	Tue Sep 26 02:02:00 2017
+	Tue Sep 26 02:42:30 2017
 $end
 $version
 	UCI SpecC VCD Writer v0.001
@@ -97,5 +97,5 @@ srunning F
 sinactive F
 #1
 $comment
-	Finished dumping at Tue Sep 26 02:02:00 2017
+	Finished dumping at Tue Sep 26 02:42:30 2017
 $end

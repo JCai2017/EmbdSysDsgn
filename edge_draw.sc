@@ -29,7 +29,7 @@ behavior edge_draw(i_receiver mid_thin2draw, i_receiver in_edges2draw, i_sender 
   }
   
 
-  printf("edge_draw\n");
+  //printf("edge_draw\n");
   
     /* mark 3x3 white block around each edge point */
     midp=mid;

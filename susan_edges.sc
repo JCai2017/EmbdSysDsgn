@@ -25,7 +25,7 @@ behavior susan_edges(i_receiver bp_receiver, i_receiver in_image2edges, i_sender
     uchar *p; 
     uchar *cp;    
 
-    printf("susan_edges\n");
+//    printf("susan_edges\n");
 
     for(k = 0; k < 516; k++)
     {

@@ -18,45 +18,51 @@
 
 # --- macros -------------------------------------------------------------
 
-ALL	= susan_edge_detector 
+MAIN	= susan_edge_detector 
 SCC	= scc
 SCCOPT	= -Tvcds -vv -w -g -d 
 RM	= rm -f
+CMP     = diff -s
+
+GOLDFILE = golden.pgm
+INFILE =   input_small.pgm
+OUTFILE =  output_edge.pgm
 
 
 # --- SpecC rules --------------------------------------------------------
 
-.SUFFIXES:
-.SUFFIXES:	.sc .cc .o
-
-.sc.cc:
-	$(SCC) $* -sc2cch $(SCCOPT)
-
-.cc.o:
-	$(SCC) $* -cc2o $(SCCOPT)
-
-.o:
-	$(SCC) $* -o2out $(SCCOPT)
-
-.cc:
-	$(SCC) $* -cc2out $(SCCOPT)
-
-.sc:
-	$(SCC) $* -sc2out $(SCCOPT)
+#.SUFFIXES:
+#.SUFFIXES:	.sc .cc .o
+#
+#.sc.cc:
+#	$(SCC) $* -sc2cch $(SCCOPT)
+#
+#.cc.o:
+#	$(SCC) $* -cc2o $(SCCOPT)
+#
+#.o:
+#	$(SCC) $* -o2out $(SCCOPT)
+#
+#.cc:
+#	$(SCC) $* -cc2out $(SCCOPT)
+#
+#.sc:
+#	$(SCC) $* -sc2out $(SCCOPT)
+#
 # scc fkldjsa -sc2sir -vv -ww -d -psi
-
 # --- targets ------------------------------------------------------------
-
-all:	$(ALL)
+#
+all:	$(MAIN)
+	sh makescript
+	$(SCC) $(MAIN) -sc2out $(SCCOPT)
 
 clean:
 	-$(RM) *.bak *.BAK
-	-$(RM) *.si *.sir *.cc *.h *.o
+	-$(RM) *.si *.sir *.o
 	-$(RM) $(ALL) *.exe
 
-test:	$(ALL)
-	set -e;					\
-	for file in $(ALL); do ./$$file ; done
-
+test:	$(MAIN) $(OUTFILE) $(INFILE) 
+	./susan_edge_detector $(INFILE) $(OUTFILE)
+	diff -s $(OUTFILE) $(GOLDFILE)
 
 # --- EOF ----------------------------------------------------------------

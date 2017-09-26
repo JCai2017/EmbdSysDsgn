@@ -17,12 +17,12 @@ behavior susan_thin(i_receiver rRec, i_receiver mid_edges2thin, i_sender mid_thi
       x_size = 76, y_size = 95;
     uchar *mp;
 
-printf("susan_thin\n");
+//printf("susan_thin\n");
 
-printf("r values in susan thin\n");
+//printf("r values in susan thin\n");
     for(i = 0; i < (76 * 95); i++){
       rRec.receive(&r[i], 4);
-printf("%d ", r[i]);
+//printf("%d ", r[i]);
     }
 
 //printf("mid values in susan thin\n");

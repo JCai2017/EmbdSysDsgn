@@ -19,7 +19,7 @@ behavior put_image(i_receiver name_receiver, i_receiver in_receiver)
 
   void main(void)
   {
-    printf("put_image\n");
+    //printf("put_image\n");
     for (i = 0; i < 200; i++){
       name_receiver.receive(&name[i], 1);
       if (name[i] == '\0'){ break; }

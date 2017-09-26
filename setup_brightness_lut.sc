@@ -14,7 +14,7 @@ behavior setup_brightness_lut(i_sender bp_sender)
 
   void main(void)
   {
-    printf("setup_brightness_lut\n");
+  //  printf("setup_brightness_lut\n");
     for (k = -256; k < 257; k++){
       temp = ((float)k)/((float)thresh);
       temp = temp*temp;
