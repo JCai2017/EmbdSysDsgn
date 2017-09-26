@@ -1,8 +1,9 @@
 #include <stdio.h>
 import "c_queue";
+import "c_handshake";
 import "setup_brightness_lut";
 
-behavior susan(i_receiver start, i_receiver in_image2edges, i_sender in_draw2image)
+behavior susan(i_receive start, i_receiver in_image2edges, i_sender in_draw2image)
 {
   const unsigned long Q_SIZE = 5;
 
