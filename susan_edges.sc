@@ -28,9 +28,11 @@ behavior susan_edges(i_receiver bp_receiver, i_receiver in_image2edges, i_sender
     {
       bp_receiver.receive(&bp[k], 1);
     } 
+printf("in values in susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
       in_image2edges.receive(&in_[k], 1);    
+printf("%d ", in_[k]);
     }    
 
 //-----------------------------//
@@ -263,17 +265,23 @@ behavior susan_edges(i_receiver bp_receiver, i_receiver in_image2edges, i_sender
     
 
 //-------------//
+printf("r values out susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
       r_sender.send(&r[k], 1);    
+printf("%d ", r[k]);
     }    
+printf("mid values out susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
       mid_edges2thin.send(&mid[k], 1);    
+printf("%d ", mid[k]);
     }    
+printf("in values out susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
       in_edges2draw.send(&in_[k], 1);    
+printf("%d ", in_[k]);
     }    
   }
 

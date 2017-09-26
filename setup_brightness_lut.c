@@ -21,6 +21,8 @@ float temp;
       temp=temp*temp*temp;
     temp=100.0*exp(-temp);
     *(*bp+k)= (uchar)temp;
+// printf("%d ", *(*bp+k));
   }
-  
+//for(k=0;k<516;k++)
+// printf("%d ", *(*bp+k));
 }

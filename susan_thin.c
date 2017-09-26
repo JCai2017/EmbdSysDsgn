@@ -20,6 +20,10 @@ uchar *mp;
 
 int x_size = 76;
 int y_size = 95;
+
+//for(i = 0; i < x_size*y_size; i++)
+//printf("%d ", r[i]);
+
   for (i=4;i<y_size-4;i++)
     for (j=4;j<x_size-4;j++)
       if (mid[i*x_size+j]<8)
@@ -214,6 +218,10 @@ int y_size = 95;
 
 /* }}} */
       }
+//for(i = 0; i < x_size*y_size; i++)
+//printf("%d ", mid[i]);
+
+
 }
 
 /* }}} */

@@ -6,10 +6,11 @@
 #include "uchar.h"
 
 import "c_queue";
+import "c_handshake";
 
 #define exit_error(IFB, IFC) {fprintf(stderr, IFB, IFC); exit(0); }
 
-behavior get_image(i_sender in_image2edges, i_receiver name, i_sender start)
+behavior get_image(i_sender in_image2edges, i_receiver name, i_send start)
 {
     /* {{{ int getint(fp) derived from XV */
 
@@ -59,7 +60,7 @@ behavior get_image(i_sender in_image2edges, i_receiver name, i_sender start)
         break;
     }
 
-   start.send(&filename[0], 1);
+   start.send();
 #ifdef FOPENB
       if ((fd=fopen(filename,"rb")) == NULL)
 #else
