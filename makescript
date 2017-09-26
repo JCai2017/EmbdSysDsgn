@@ -1,0 +1,11 @@
+
+scc susan_edges -sc2sir -vv -ww -d -psi
+scc susan_thin -sc2sir -vv -ww -d -psi
+scc setup_brightness_lut -sc2sir -vv -ww -d -psi
+scc edge_draw -sc2sir -vv -ww -d -psi
+scc get_image -sc2sir -vv -ww -d -psi
+scc put_image -sc2sir -vv -ww -d -psi
+scc susan -sc2sir -vv -ww -d -psi
+
+make
+make test

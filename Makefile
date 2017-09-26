@@ -18,7 +18,7 @@
 
 # --- macros -------------------------------------------------------------
 
-ALL	= susan 
+ALL	= susan_edge_detector 
 SCC	= scc
 SCCOPT	= -Tvcds -vv -w -g -d 
 RM	= rm -f
