@@ -6,4 +6,7 @@ scc edge_draw -sc2sir -vv -ww -d -psi
 scc get_image -sc2sir -vv -ww -d -psi
 scc put_image -sc2sir -vv -ww -d -psi
 scc susan -sc2sir -vv -ww -d -psi
+scc read_image -sc2sir -vv -ww -d -psi
+scc write_image -sc2sir -vv -ww -d -psi
+scc design -sc2sir -vv -ww -d -psi
 

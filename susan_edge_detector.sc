@@ -4,24 +4,24 @@
 
 import "c_queue";
 import "c_handshake";
-import "susan";
+import "design";
 import "get_image";
 import "put_image";
 
 behavior Main(void)
 {
 
-	const unsigned long Q_SIZE = 76*100;
-
-	c_handshake start;
-	c_queue input(Q_SIZE);
-	c_queue output(Q_SIZE);
-	c_queue inputName(Q_SIZE);
-	c_queue outputName(Q_SIZE);
-
-        susan s(start, input, output);
-	get_image gi(input, inputName, start);
-	put_image pi(outputName, output);
+    const unsigned long Q_SIZE = 76*100;
+    
+    c_handshake start;
+    c_queue input(Q_SIZE);
+    c_double_handshake output;
+    c_queue inputName(Q_SIZE);
+    c_queue outputName(Q_SIZE);
+    
+    design d(start, input, output);
+    get_image gi(input, inputName, start);
+    put_image pi(outputName, output);
 
     int main(int argc, char* argv[])
     {
@@ -50,7 +50,7 @@ behavior Main(void)
 
     	par {
     		gi.main();
-    		s.main();
+    		d.main();
     		pi.main();
     	}
     	return(0);
