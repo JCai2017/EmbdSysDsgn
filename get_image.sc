@@ -6,11 +6,11 @@
 #include "uchar.h"
 
 import "c_queue";
-import "c_handshake";
+import "c_handshake"
 
 #define exit_error(IFB, IFC) {fprintf(stderr, IFB, IFC); exit(0); }
 
-behavior get_image(i_sender in_image2edges, i_receiver name, i_send start)
+behavior get_image(i_sender stim2read, i_receiver name, i_send start)
 {
     /* {{{ int getint(fp) derived from XV */
 
@@ -60,8 +60,6 @@ behavior get_image(i_sender in_image2edges, i_receiver name, i_send start)
         break;
     }
 
-   waitfor(1000);
-   start.send();
 #ifdef FOPENB
       if ((fd=fopen(filename,"rb")) == NULL)
 #else
@@ -90,8 +88,10 @@ behavior get_image(i_sender in_image2edges, i_receiver name, i_send start)
       for(itTime = 0; itTime < 5; itTime ++){
 
        for(i = 0; i < (76 * 95); i ++){
-            in_image2edges.send(&in_[i], 1);
+            stim2read.send(&in_[i], 1);
       	}
+
+        start.send();
 
         waitfor(100);
       }
