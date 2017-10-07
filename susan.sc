@@ -44,6 +44,8 @@ behavior susan(i_receive start, i_receiver in_image2edges, i_sender in_draw2imag
   
   void main(void)
   {
+      int i;
+      for(i = 0; i < 5; i ++){
 //    par{
       sbl.main();
       se.main();
@@ -51,6 +53,7 @@ behavior susan(i_receive start, i_receiver in_image2edges, i_sender in_draw2imag
       st.main();
       ed.main();
 //    }
+      }
   }
 };
 

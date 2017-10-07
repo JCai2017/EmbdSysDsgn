@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "uchar.h"
+#include "sim/time.sh"
 #include <string.h>
 
 import "c_queue";
@@ -15,7 +16,7 @@ behavior put_image(i_receiver name_receiver, i_receiver in_receiver)
   const int y_size = 95; 
   uchar vals[x_size*y_size];
   char name[200];
-  int i;
+  int i, j;
 
   void main(void)
   {
@@ -24,9 +25,11 @@ behavior put_image(i_receiver name_receiver, i_receiver in_receiver)
       name_receiver.receive(&name[i], 1);
       if (name[i] == '\0'){ break; }
     }
+    for(j = 0; j < 5; j ++){
     for (i = 0; i < x_size*y_size; i++){
       in_receiver.receive(&vals[i], 1);
     }
+    
 #ifdef FOPENB
     if ((fd=fopen(name,"wb")) == NULL)
 #else
@@ -43,6 +46,8 @@ behavior put_image(i_receiver name_receiver, i_receiver in_receiver)
     }
 
     fclose(fd);
+    printf("Time: %llu\n", now());
+    }
 
   }
 };

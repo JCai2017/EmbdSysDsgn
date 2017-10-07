@@ -52,7 +52,7 @@ behavior get_image(i_sender in_image2edges, i_receiver name, i_send start)
     char filename[200];
     uchar in_[76 * 95];
     char header [100];
-    int i, tmpx, tmpy, tmp;
+    int i, itTime, tmpx, tmpy, tmp;
 
     for(i = 0; i < 200; i ++){
       name.receive(&filename[i], 1);
@@ -60,6 +60,7 @@ behavior get_image(i_sender in_image2edges, i_receiver name, i_send start)
         break;
     }
 
+   waitfor(1000);
    start.send();
 #ifdef FOPENB
       if ((fd=fopen(filename,"rb")) == NULL)
@@ -86,8 +87,13 @@ behavior get_image(i_sender in_image2edges, i_receiver name, i_send start)
 
       fclose(fd);
 
-      for(i = 0; i < (76 * 95); i ++){
-        in_image2edges.send(&in_[i], 1);
+      for(itTime = 0; itTime < 5; itTime ++){
+
+       for(i = 0; i < (76 * 95); i ++){
+            in_image2edges.send(&in_[i], 1);
+      	}
+
+        waitfor(100);
       }
 
   }
