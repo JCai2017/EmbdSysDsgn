@@ -37,13 +37,13 @@ behavior Main(void)
     	}
 
 		while (1){
-	  	  inputName.send(argv[1]+i, 1);
+	  	  inputName.send(argv[1]+i);
                   if(*(argv[1] + i) == '\0')
                     break;
                   i += 1;
 		}
 	    while (1){
-	    	outputName.send(argv[2]+j, 1);
+	    	outputName.send(argv[2]+j);
                 if(*(argv[2] + j) == '\0') break;
 	    	j += 1;
 	    }

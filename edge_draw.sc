@@ -18,13 +18,13 @@ behavior edge_draw(i_bit8_receiver mid_thin2draw, i_bit8_receiver in_edges2draw,
 //printf("mid values in edge draw");
   for(k=0; k<x_size*y_size; k++)
   {
-    mid_thin2draw.receive(&mid[k]);
+    mid_thin2draw.receive((void*)&mid[k]);
 //printf("%d", mid[k]);
   }
 //printf("in values in edge draw");
   for(k=0; k<x_size*y_size; k++)
   {
-    in_edges2draw.receive(&in_[k]);
+    in_edges2draw.receive((void*)&in_[k]);
 //printf("%d", in[k]);
   }
   
