@@ -9,4 +9,5 @@ scc susan -sc2sir -vv -ww -d -psi
 scc read_image -sc2sir -vv -ww -d -psi
 scc write_image -sc2sir -vv -ww -d -psi
 scc design -sc2sir -vv -ww -d -psi
+scc c_bit32_queue -sc2sir -vv -ww -d -psi
 
