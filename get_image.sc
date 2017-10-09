@@ -7,10 +7,11 @@
 
 import "c_queue";
 import "c_handshake";
+import "c_bit8_queue";
 
 #define exit_error(IFB, IFC) {fprintf(stderr, IFB, IFC); exit(0); }
 
-behavior get_image(i_sender stim2read, i_receiver name, i_send start)
+behavior get_image(i_bit8_sender stim2read, i_receiver name, i_send start)
 {
     /* {{{ int getint(fp) derived from XV */
 
@@ -53,6 +54,7 @@ behavior get_image(i_sender stim2read, i_receiver name, i_send start)
     uchar in_[76 * 95];
     char header [100];
     int i, itTime, tmpx, tmpy, tmp;
+    bit[8] temp8;
 
     for(i = 0; i < 200; i ++){
       name.receive(&filename[i], 1);
@@ -88,7 +90,8 @@ behavior get_image(i_sender stim2read, i_receiver name, i_send start)
       for(itTime = 0; itTime < 5; itTime ++){
 
        for(i = 0; i < (76 * 95); i ++){
-            stim2read.send(&in_[i], 1);
+            temp8 = in_[i];
+            stim2read.send(temp8);
       	}
 
         waitfor(1000);

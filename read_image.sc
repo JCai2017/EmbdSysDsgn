@@ -11,9 +11,11 @@ behavior read_image(i_receive start, i_bit8_receiver stim2read, i_bit8_sender im
       uchar in_[76 * 95];
       int i;
       static int j = 0;
+      bit[8] temp8;
 
-      for(i = 0; i < (76 * 95); i ++){
-          stim2read.receive((void*)&in_[i]);
+      for(i = 0; i < (76 * 95); i ++){          
+          stim2read.receive(&temp8);
+          in_[i] = temp8;
       }
 
       if(j == 0){
@@ -24,7 +26,8 @@ behavior read_image(i_receive start, i_bit8_receiver stim2read, i_bit8_sender im
       start.receive();
 
       for(i = 0; i < (76 * 95); i ++){
-          img_read2susan.send(in_[i]);
+          temp8 = in_[i];
+          img_read2susan.send(temp8);
       }
    }
 };

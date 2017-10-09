@@ -11,6 +11,7 @@ behavior setup_brightness_lut(i_bit8_sender bp_sender)
   float temp;
   uchar bp[516];
   int idx = 258;
+  bit[8] temp8;
 
   void main(void)
   {
@@ -25,7 +26,8 @@ behavior setup_brightness_lut(i_bit8_sender bp_sender)
       bp[idx+k] = (uchar)temp; 
     }
     for (k = 0; k < 516; k++){
-      bp_sender.send(bp[k]);
+      temp8 = bp[k];
+      bp_sender.send(temp8);
 //printf("%d ", bp[k]);
     }
   }

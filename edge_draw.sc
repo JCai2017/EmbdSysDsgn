@@ -14,17 +14,20 @@ behavior edge_draw(i_bit8_receiver mid_thin2draw, i_bit8_receiver in_edges2draw,
  
   uchar in_[x_size*y_size]; 
   uchar mid[x_size*y_size];
+  bit[8] temp8;
   
 //printf("mid values in edge draw");
   for(k=0; k<x_size*y_size; k++)
   {
-    mid_thin2draw.receive((void*)&mid[k]);
+    mid_thin2draw.receive(&temp8);
+    mid[k] = temp8;
 //printf("%d", mid[k]);
   }
 //printf("in values in edge draw");
   for(k=0; k<x_size*y_size; k++)
   {
-    in_edges2draw.receive((void*)&in_[k]);
+    in_edges2draw.receive(&temp8);
+    in_[k] = temp8;
 //printf("%d", in[k]);
   }
   
@@ -57,7 +60,8 @@ behavior edge_draw(i_bit8_receiver mid_thin2draw, i_bit8_receiver in_edges2draw,
 //printf("in values out edge draw\n");
   for(k=0; k<x_size*y_size; k++)
   {
-    in_draw2image.send(in_[k]);
+    temp8 = in_[k];
+    in_draw2image.send(temp8);
 //printf("%d ", in_[k]);
   }
     

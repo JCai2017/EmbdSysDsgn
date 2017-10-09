@@ -13,12 +13,14 @@ behavior susan_edges(i_bit8_receiver bp_receiver, i_bit8_receiver in_image2edges
     const int y_size = 95;
 
     uchar in_[x_size* y_size]; 
-    int   r[x_size * y_size];
+    int r[x_size * y_size];
     uchar mid[x_size * y_size];
     uchar bp_arr[516];
     uchar* bp;
     int max_no = 2650;
     int k;
+    bit[8] temp8;
+    bit[32] temp32;
 
     float z;
     int   do_symmetry, i, j, m, n, a, b, x, y, w;
@@ -30,7 +32,8 @@ behavior susan_edges(i_bit8_receiver bp_receiver, i_bit8_receiver in_image2edges
 
     for(k = 0; k < 516; k++)
     {
-      bp_receiver.receive((void*)(&bp_arr[k]));
+      bp_receiver.receive(&temp8);
+      bp_arr[k] = temp8;
 //printf("%x ", bp_arr[k]);
     } 
 bp = bp_arr+258;
@@ -42,7 +45,8 @@ bp = bp_arr+258;
 //printf("in values in susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
-      in_image2edges.receive((void*)(&in_[k]));
+      in_image2edges.receive(&temp8);
+      in_[k] = temp8;
 //printf("%d ", in_[k]);
     }    
 
@@ -289,19 +293,22 @@ bp = bp_arr+258;
 //printf("r values out susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
-      r_sender.send(r[k]);    
+      temp32 = r[k];
+      r_sender.send(temp32);    
 //printf("%d ", r[k]);
     }    
 //printf("mid values out susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
-      mid_edges2thin.send(mid[k]);    
+      temp8 = mid[k];
+      mid_edges2thin.send(temp8);    
 //printf("%d ", mid[k]);
     }    
 //printf("in values out susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
-      in_edges2draw.send(in_[k]);    
+      temp8 = in_[k];
+      in_edges2draw.send(temp8);    
 //printf("%d ", in_[k]);
     }    
   }

@@ -8,7 +8,7 @@ behavior susan_thin(i_bit32_receiver rRec, i_bit8_receiver mid_edges2thin, i_bit
   void main(void)
   {
     int r[76 * 95];
-    unsigned char mid[76 * 95];
+    uchar mid[76 * 95];
 
     int   l[9], centre, nlinks, npieces,
       b01, b12, b21, b10,
@@ -17,18 +17,22 @@ behavior susan_thin(i_bit32_receiver rRec, i_bit8_receiver mid_edges2thin, i_bit
       m, n, a, b, x, y, i, j, 
       x_size = 76, y_size = 95;
     uchar *mp;
+    bit[8] temp8;
+    bit[32] temp32;
 
 //printf("susan_thin\n");
 
 //printf("r values in susan thin\n");
     for(i = 0; i < (76 * 95); i++){
-      rRec.receive((void*)(&r[i]));
+      rRec.receive(&temp32);
+      r[i] = temp32;
 //printf("%d ", r[i]);
     }
 
 //printf("mid values in susan thin\n");
     for(i = 0; i < (76 * 95); i++){
-      mid_edges2thin.receive((void*)(&mid[i]));
+      mid_edges2thin.receive(&temp8);
+      mid[i] = temp8;
 //printf("%d ", mid[i]);
     }
 
@@ -226,7 +230,8 @@ behavior susan_thin(i_bit32_receiver rRec, i_bit8_receiver mid_edges2thin, i_bit
 
 //printf("mid values out susan thin\n");
     for(i = 0; i < (76 * 95); i ++){
-      mid_thin2draw.send(mid[i]);
+      temp8 = mid[i];
+      mid_thin2draw.send(temp8);
 //printf("%d ", mid[i]);
     }
   }

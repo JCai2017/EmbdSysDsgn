@@ -3,7 +3,7 @@
 import "c_bit8_queue";
 import "c_double_handshake";
 
-behavior write_image(i_receiver inputtedOutputImage, i_bit8_sender forwardedOutputImage)
+behavior write_image(i_bit8_receiver inputtedOutputImage, i_sender forwardedOutputImage)
 {
   void main(void)
   {
@@ -13,9 +13,11 @@ behavior write_image(i_receiver inputtedOutputImage, i_bit8_sender forwardedOutp
  
     for(k=0; k<x_size*y_size; k++)
     {
-      uchar c;
-      inputtedOutputImage.receive(&c, 1);
-      forwardedOutputImage.send(c);
+      bit[8] c;
+      uchar c_uchar;
+      inputtedOutputImage.receive(&c);
+      c_uchar = c; 
+      forwardedOutputImage.send(&c_uchar, 1);
     }  
   }
 };
