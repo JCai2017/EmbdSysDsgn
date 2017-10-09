@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "uchar.h"
-import "c_queue";
+import "c_bit8_queue";
 import "c_double_handshake";
 
-behavior write_image(i_receiver inputtedOutputImage, i_sender forwardedOutputImage)
+behavior write_image(i_receiver inputtedOutputImage, i_bit8_sender forwardedOutputImage)
 {
   void main(void)
   {
@@ -15,7 +15,7 @@ behavior write_image(i_receiver inputtedOutputImage, i_sender forwardedOutputIma
     {
       uchar c;
       inputtedOutputImage.receive(&c, 1);
-      forwardedOutputImage.send(&c, 1);
+      forwardedOutputImage.send(c);
     }  
   }
 };
