@@ -22,12 +22,12 @@ behavior put_image(i_bit8_receiver name_receiver, i_bit8_receiver in_receiver)
   {
     //printf("put_image\n");
     for (i = 0; i < 200; i++){
-      name_receiver.receive(&name[i]);
+      name_receiver.receive((void*)&name[i]);
       if (name[i] == '\0'){ break; }
     }
     for(j = 0; j < 5; j ++){
     for (i = 0; i < x_size*y_size; i++){
-      in_receiver.receive(&vals[i]);
+      in_receiver.receive((void*)&vals[i]);
     }
     
 #ifdef FOPENB
