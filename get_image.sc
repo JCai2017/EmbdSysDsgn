@@ -55,7 +55,7 @@ behavior get_image(i_bit8_sender stim2read, i_bit8_receiver name, i_send start)
     int i, itTime, tmpx, tmpy, tmp;
 
     for(i = 0; i < 200; i ++){
-      name.receive(&filename[i], 1);
+      name.receive(&filename[i]);
       if(filename[i] == 0)
         break;
     }
@@ -88,7 +88,7 @@ behavior get_image(i_bit8_sender stim2read, i_bit8_receiver name, i_send start)
       for(itTime = 0; itTime < 5; itTime ++){
 
        for(i = 0; i < (76 * 95); i ++){
-            stim2read.send(&in_[i], 1);
+            stim2read.send(in_[i]);
       	}
 
         waitfor(1000);
