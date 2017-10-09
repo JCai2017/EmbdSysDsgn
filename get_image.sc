@@ -5,12 +5,12 @@
 
 #include "uchar.h"
 
-import "c_bit8_queue";
+import "c_queue";
 import "c_handshake";
 
 #define exit_error(IFB, IFC) {fprintf(stderr, IFB, IFC); exit(0); }
 
-behavior get_image(i_bit8_sender stim2read, i_bit8_receiver name, i_send start)
+behavior get_image(i_sender stim2read, i_receiver name, i_send start)
 {
     /* {{{ int getint(fp) derived from XV */
 
@@ -55,7 +55,7 @@ behavior get_image(i_bit8_sender stim2read, i_bit8_receiver name, i_send start)
     int i, itTime, tmpx, tmpy, tmp;
 
     for(i = 0; i < 200; i ++){
-      name.receive((void*)&filename[i]);
+      name.receive(&filename[i], 1);
       if(filename[i] == 0)
         break;
     }
@@ -88,7 +88,7 @@ behavior get_image(i_bit8_sender stim2read, i_bit8_receiver name, i_send start)
       for(itTime = 0; itTime < 5; itTime ++){
 
        for(i = 0; i < (76 * 95); i ++){
-            stim2read.send(in_[i]);
+            stim2read.send(&in_[i], 1);
       	}
 
         waitfor(1000);
