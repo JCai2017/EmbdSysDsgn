@@ -9,7 +9,7 @@ import "c_bit8_queue";
 
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 
-behavior put_image(i_bit8_receiver name_receiver, i_bit8_receiver in_receiver)
+behavior put_image(i_bit8_receiver name_receiver, i_receiver in_receiver)
 {
   FILE* fd;
   const int x_size = 76;
@@ -27,7 +27,7 @@ behavior put_image(i_bit8_receiver name_receiver, i_bit8_receiver in_receiver)
     }
     for(j = 0; j < 5; j ++){
     for (i = 0; i < x_size*y_size; i++){
-      in_receiver.receive((void*)&vals[i]);
+      in_receiver.receive(&vals[i], 1);
     }
     
 #ifdef FOPENB

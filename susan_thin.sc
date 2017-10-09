@@ -22,13 +22,13 @@ behavior susan_thin(i_bit32_receiver rRec, i_bit8_receiver mid_edges2thin, i_bit
 
 //printf("r values in susan thin\n");
     for(i = 0; i < (76 * 95); i++){
-      rRec.receive(&r[i]);
+      rRec.receive((void*)(&r[i]));
 //printf("%d ", r[i]);
     }
 
 //printf("mid values in susan thin\n");
     for(i = 0; i < (76 * 95); i++){
-      mid_edges2thin.receive(&mid[i]);
+      mid_edges2thin.receive((void*)(&mid[i]));
 //printf("%d ", mid[i]);
     }
 

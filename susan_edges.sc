@@ -30,7 +30,7 @@ behavior susan_edges(i_bit8_receiver bp_receiver, i_bit8_receiver in_image2edges
 
     for(k = 0; k < 516; k++)
     {
-      bp_receiver.receive(&bp_arr[k]);
+      bp_receiver.receive((void*)(&bp_arr[k]));
 //printf("%x ", bp_arr[k]);
     } 
 bp = bp_arr+258;
@@ -42,7 +42,7 @@ bp = bp_arr+258;
 //printf("in values in susan edges\n");
     for(k = 0; k < x_size * y_size; k++)
     {
-      in_image2edges.receive(&in_[k]);    
+      in_image2edges.receive((void*)(&in_[k]));
 //printf("%d ", in_[k]);
     }    
 
