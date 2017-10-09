@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include "uchar.h"
-import "c_queue";
+import "c_bit8_queue";
+import "c_bit32_queue";
 
-behavior susan_thin(i_receiver rRec, i_receiver mid_edges2thin, i_sender mid_thin2draw)
+behavior susan_thin(i_bit32_receiver rRec, i_bit8_receiver mid_edges2thin, i_bit8_sender mid_thin2draw)
 {
   void main(void)
   {

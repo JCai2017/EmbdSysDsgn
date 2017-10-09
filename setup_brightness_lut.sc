@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 #include "uchar.h"
-import "c_queue";
+import "c_bit8_queue";
 
-behavior setup_brightness_lut(i_sender bp_sender)
+behavior setup_brightness_lut(i_bit8_sender bp_sender)
 {
   const int thresh = 20;
   const int form = 6;

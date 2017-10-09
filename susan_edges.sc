@@ -2,9 +2,10 @@
 #include <string.h>
 #include <math.h>
 #include "uchar.h"
-import "c_queue";
+import "c_bit8_queue";
+import "c_bit32_queue";
 
-behavior susan_edges(i_receiver bp_receiver, i_receiver in_image2edges, i_sender r_sender, i_sender mid_edges2thin, i_sender in_edges2draw)
+behavior susan_edges(i_bit8_receiver bp_receiver, i_bit8_receiver in_image2edges, i_bit32_sender r_sender, i_bit8_sender mid_edges2thin, i_bit8_sender in_edges2draw)
 {
   void main(void)
   {

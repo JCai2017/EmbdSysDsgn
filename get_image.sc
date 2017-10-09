@@ -5,12 +5,12 @@
 
 #include "uchar.h"
 
-import "c_queue";
+import "c_bit8_queue";
 import "c_handshake";
 
 #define exit_error(IFB, IFC) {fprintf(stderr, IFB, IFC); exit(0); }
 
-behavior get_image(i_sender stim2read, i_receiver name, i_send start)
+behavior get_image(i_bit8_sender stim2read, i_bit8_receiver name, i_send start)
 {
     /* {{{ int getint(fp) derived from XV */
 

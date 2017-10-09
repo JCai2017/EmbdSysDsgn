@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-import "c_queue";
+import "c_bit8_queue";
 import "c_handshake";
 import "design";
 import "get_image";
@@ -14,10 +14,10 @@ behavior Main(void)
     const unsigned long Q_SIZE = 76*100;
     
     c_handshake start;
-    c_queue input(Q_SIZE);
-    c_double_handshake output;
-    c_queue inputName(Q_SIZE);
-    c_queue outputName(Q_SIZE);
+    c_bit8_queue input(Q_SIZE);
+    c_bit8_double_handshake output;
+    c_bit8_queue inputName(Q_SIZE);
+    c_bit8_queue outputName(Q_SIZE);
     
     design d(start, input, output);
     get_image gi(input, inputName, start);

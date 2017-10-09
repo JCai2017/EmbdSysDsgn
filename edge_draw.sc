@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "uchar.h"
-import "c_queue";
+import "c_bit8_queue";
 
-behavior edge_draw(i_receiver mid_thin2draw, i_receiver in_edges2draw, i_sender in_draw2image)
+behavior edge_draw(i_bit8_receiver mid_thin2draw, i_bit8_receiver in_edges2draw, i_bit8_sender in_draw2image)
 {
   void main(void)
   {

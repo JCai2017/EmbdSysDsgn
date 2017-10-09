@@ -5,11 +5,11 @@
 #include "sim/time.sh"
 #include <string.h>
 
-import "c_queue";
+import "c_bit8_queue";
 
 #define  exit_error(IFB,IFC) { fprintf(stderr,IFB,IFC); exit(0); }
 
-behavior put_image(i_receiver name_receiver, i_receiver in_receiver)
+behavior put_image(i_bit8_receiver name_receiver, i_bit8_receiver in_receiver)
 {
   FILE* fd;
   const int x_size = 76;

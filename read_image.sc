@@ -1,10 +1,10 @@
-import "c_queue";
+import "c_bit8_queue";
 import "c_handshake";
 
 #include "uchar.h"
 #include <stdio.h>
 
-behavior read_image(i_receive start, i_receiver stim2read, i_sender img_read2susan)
+behavior read_image(i_receive start, i_bit8_receiver stim2read, i_bit8_sender img_read2susan)
 {
 
     void main(void){
