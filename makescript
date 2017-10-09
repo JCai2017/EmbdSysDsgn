@@ -1,4 +1,5 @@
-
+scc c_bit32_queue -sc2sir -vv -ww -d -psi
+scc c_bit8_queue -sc2sir -vv -ww -d -psi
 scc susan_edges -sc2sir -vv -ww -d -psi
 scc susan_thin -sc2sir -vv -ww -d -psi
 scc setup_brightness_lut -sc2sir -vv -ww -d -psi
@@ -9,5 +10,4 @@ scc susan -sc2sir -vv -ww -d -psi
 scc read_image -sc2sir -vv -ww -d -psi
 scc write_image -sc2sir -vv -ww -d -psi
 scc design -sc2sir -vv -ww -d -psi
-scc c_bit32_queue -sc2sir -vv -ww -d -psi
-scc c_bit8_queue -sc2sir -vv -ww -d -psi
+
