@@ -5,8 +5,156 @@
 import "c_bit8_queue";
 import "c_bit32_queue";
 
+behavior susan_edges_op1(const unsigned long start_j, const unsigned long end_j, i_bit8_receiver inputs, i_bit32_sender outputs)
+{
+  const int y_size = 95;
+  const int x_size = 76;
+
+  int max_no = 2650;
+  int   i, j, n;
+  uchar *p; 
+  uchar *cp; 
+  uchar* bp;
+
+
+  uchar in_[x_size* y_size]; 
+  int r[x_size * y_size];
+  uchar bp_arr[516];
+  bit[8] temp8;
+  bit[32] temp32;
+
+  void main(void)
+  {
+    memset (r,0,x_size * y_size * sizeof(int));
+
+    for(i = 0; i < x_size*y_size; i++)
+    {
+      inputs.receive(&temp8);
+      in_[i] = temp8;
+    } 
+//for(i = 0; i < x_size*y_size; i++)
+//printf("%d ",in_[i]);
+    for(i = 0; i < 516; i++)
+    {
+      inputs.receive(&temp8);
+      bp_arr[i] = temp8;
+    } 
+    bp = bp_arr+258;    
+
+    for (i=3;i<y_size-3;i++)
+      for (j=start_j;j<end_j;j++)
+      {
+        n=100;
+        p=in_ + (i-3)*x_size + j - 1;
+        cp=bp + in_[i*x_size+j];
+  
+        
+  //printf("%x, %x, %x, %x, %x, %x, %x\n", n, *in_, *p, cp, *bp, *(cp-*p), in_[i*x_size+j]);
+        n+=*(cp-*p);
+        p++;
+  //printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
+        n+=*(cp-*p);
+        p++;
+  //printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
+        n+=*(cp-*p);
+        p+=x_size-3; 
+  //printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
+  
+  
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p);
+        p+=x_size-5;
+  
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p);
+        p+=x_size-6;
+  
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p);
+        p+=2;
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p);
+        p+=x_size-6;
+  
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p);
+        p+=x_size-5;
+  
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p);
+        p+=x_size-3;
+  
+        n+=*(cp-*p++);
+        n+=*(cp-*p++);
+        n+=*(cp-*p);
+  
+        if (n<=max_no)
+          r[i*x_size+j] = max_no - n;
+    }
+
+    for(i = 0; i < x_size*y_size; i++)
+    {
+      temp32 = r[i];
+      outputs.send(temp32);
+    } 
+
+  } 
+};
+
 behavior susan_edges(i_bit8_receiver bp_receiver, i_bit8_receiver in_image2edges, i_bit32_sender r_sender, i_bit8_sender mid_edges2thin, i_bit8_sender in_edges2draw)
 {
+const unsigned long Q_SIZE = 76*95;
+const unsigned long Q_SIZE_2 = 76*95 + 516;
+const unsigned long _3 = 3;
+const unsigned long _13 = 13;
+const unsigned long _23 = 23;
+const unsigned long _33 = 33;
+const unsigned long _43 = 43;
+const unsigned long _53 = 53;
+const unsigned long _63 = 63;
+const unsigned long _73 = 73;
+
+c_bit8_queue qin_op1_0(Q_SIZE_2);
+c_bit32_queue qout_op1_0(Q_SIZE);
+c_bit8_queue qin_op1_1(Q_SIZE_2);
+c_bit32_queue qout_op1_1(Q_SIZE);
+c_bit8_queue qin_op1_2(Q_SIZE_2);
+c_bit32_queue qout_op1_2(Q_SIZE);
+c_bit8_queue qin_op1_3(Q_SIZE_2);
+c_bit32_queue qout_op1_3(Q_SIZE);
+c_bit8_queue qin_op1_4(Q_SIZE_2);
+c_bit32_queue qout_op1_4(Q_SIZE);
+c_bit8_queue qin_op1_5(Q_SIZE_2);
+c_bit32_queue qout_op1_5(Q_SIZE);
+c_bit8_queue qin_op1_6(Q_SIZE_2);
+c_bit32_queue qout_op1_6(Q_SIZE);
+
+susan_edges_op1 se_op1_0(_3, _13, qin_op1_0, qout_op1_0);
+susan_edges_op1 se_op1_1(_13, _23, qin_op1_1, qout_op1_1);
+susan_edges_op1 se_op1_2(_23, _33, qin_op1_2, qout_op1_2);
+susan_edges_op1 se_op1_3(_33, _43, qin_op1_3, qout_op1_3);
+susan_edges_op1 se_op1_4(_43, _53, qin_op1_4, qout_op1_4);
+susan_edges_op1 se_op1_5(_53, _63, qin_op1_5, qout_op1_5);
+susan_edges_op1 se_op1_6(_63, _73, qin_op1_6, qout_op1_6);
+
   void main(void)
   {
     const int x_size = 76;
@@ -49,6 +197,10 @@ bp = bp_arr+258;
       in_[k] = temp8;
 //printf("%d ", in_[k]);
     }    
+//for(k = 0; k < x_size * y_size; k++)
+//printf("%d ", in_[k]);
+
+
 
 //-----------------------------//
 
@@ -56,7 +208,58 @@ bp = bp_arr+258;
 
   memset (r,0,x_size * y_size * sizeof(int));
   memset (mid, 100, x_size*y_size);
+    
+  
+  for(i = 0; i < x_size*y_size; i++)
+  {
+    temp8 = in_[i];
+    qin_op1_0.send(temp8);
+    qin_op1_1.send(temp8);
+    qin_op1_2.send(temp8);
+    qin_op1_3.send(temp8);
+    qin_op1_4.send(temp8);
+    qin_op1_5.send(temp8);
+    qin_op1_6.send(temp8);
+  } 
+  for(i = 0; i < 516; i++)
+  {
+    temp8 = bp_arr[i];
+    qin_op1_0.send(temp8);
+    qin_op1_1.send(temp8);
+    qin_op1_2.send(temp8);
+    qin_op1_3.send(temp8);
+    qin_op1_4.send(temp8);
+    qin_op1_5.send(temp8);
+    qin_op1_6.send(temp8);
+  } 
+  par {
+    se_op1_0.main();
+    se_op1_1.main();
+    se_op1_2.main();
+    se_op1_3.main();
+    se_op1_4.main();
+    se_op1_5.main();
+    se_op1_6.main();
+  }
+  for(i = 0; i < x_size*y_size; i++)
+  {
+    qout_op1_0.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_1.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_2.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_3.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_4.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_5.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_6.receive(&temp32);    
+    r[i] += temp32;
+  } 
 
+/*  
   for (i=3;i<y_size-3;i++)
     for (j=3;j<x_size-3;j++)
     {
@@ -125,7 +328,7 @@ bp = bp_arr+258;
       if (n<=max_no)
         r[i*x_size+j] = max_no - n;
     }
-
+*/
   for (i=4;i<y_size-4;i++)
     for (j=4;j<x_size-4;j++)
     {

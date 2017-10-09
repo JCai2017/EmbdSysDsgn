@@ -55,6 +55,9 @@ OUTFILE =  output_edge.pgm
 all:	$(MAIN)
 	sh makescript
 	$(SCC) $(MAIN) -sc2out $(SCCOPT)
+par: 	$(MAIN)
+	sh makescript
+	$(SCC) $(MAIN) -sc2out $(SCCOPT) -par
 
 clean:
 	-$(RM) *.bak *.BAK

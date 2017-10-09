@@ -87,7 +87,7 @@ behavior get_image(i_bit8_sender stim2read, i_receiver name, i_send start)
 
       fclose(fd);
 
-      for(itTime = 0; itTime < 5; itTime ++){
+      for(itTime = 0; itTime < 20; itTime ++){
 
        for(i = 0; i < (76 * 95); i ++){
             temp8 = in_[i];

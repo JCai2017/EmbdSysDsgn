@@ -19,7 +19,7 @@ behavior design(i_receive start, i_bit8_receiver img_stim2read, i_sender img_wri
   void main(void)
   {
     int i;
-    for(i = 0; i < 5; i++){
+    for(i = 0; i < 20; i++){
       par{
         ri.main();
         s.main();

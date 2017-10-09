@@ -25,7 +25,7 @@ behavior put_image(i_receiver name_receiver, i_receiver in_receiver)
       name_receiver.receive(&name[i], 1);
       if (name[i] == '\0'){ break; }
     }
-    for(j = 0; j < 5; j ++){
+    for(j = 0; j < 20; j ++){
     for (i = 0; i < x_size*y_size; i++){
       in_receiver.receive(&vals[i], 1);
     }
