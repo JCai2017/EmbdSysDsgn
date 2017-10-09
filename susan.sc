@@ -9,8 +9,8 @@ import "edge_draw";
 
 behavior susan(i_bit8_receiver in_image2edges, i_bit8_sender in_draw2image)
 {
-  const unsigned long Q_SIZE = 76*100;
-  const unsigned long Q_SIZE_INT = 4*76*100;
+  const unsigned long Q_SIZE = 76*95*5;
+//  const unsigned long Q_SIZE_INT = 4*76*100;
 
   c_bit8_queue bp(Q_SIZE);
   c_bit8_queue in_edges2draw(Q_SIZE);

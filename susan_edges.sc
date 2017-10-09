@@ -5,7 +5,7 @@
 import "c_bit8_queue";
 import "c_bit32_queue";
 
-behavior susan_edges_op1(const unsigned long start_j, const unsigned long end_j, i_bit8_receiver inputs, i_bit32_sender outputs)
+behavior susan_edges_op1(const int start_j, const int end_j, i_bit8_receiver inputs, i_bit32_sender outputs)
 {
   const int y_size = 95;
   const int x_size = 76;
@@ -119,218 +119,49 @@ behavior susan_edges_op1(const unsigned long start_j, const unsigned long end_j,
   } 
 };
 
-behavior susan_edges(i_bit8_receiver bp_receiver, i_bit8_receiver in_image2edges, i_bit32_sender r_sender, i_bit8_sender mid_edges2thin, i_bit8_sender in_edges2draw)
+behavior susan_edges_op2(const int start_j, const int end_j, i_bit8_receiver inputs, i_bit32_receiver inputs1, i_bit8_sender outputs)
 {
-const unsigned long Q_SIZE = 76*95;
-const unsigned long Q_SIZE_2 = 76*95 + 516;
-const unsigned long _3 = 3;
-const unsigned long _13 = 13;
-const unsigned long _23 = 23;
-const unsigned long _33 = 33;
-const unsigned long _43 = 43;
-const unsigned long _53 = 53;
-const unsigned long _63 = 63;
-const unsigned long _73 = 73;
+  const int y_size = 95;
+  const int x_size = 76;
 
-c_bit8_queue qin_op1_0(Q_SIZE_2);
-c_bit32_queue qout_op1_0(Q_SIZE);
-c_bit8_queue qin_op1_1(Q_SIZE_2);
-c_bit32_queue qout_op1_1(Q_SIZE);
-c_bit8_queue qin_op1_2(Q_SIZE_2);
-c_bit32_queue qout_op1_2(Q_SIZE);
-c_bit8_queue qin_op1_3(Q_SIZE_2);
-c_bit32_queue qout_op1_3(Q_SIZE);
-c_bit8_queue qin_op1_4(Q_SIZE_2);
-c_bit32_queue qout_op1_4(Q_SIZE);
-c_bit8_queue qin_op1_5(Q_SIZE_2);
-c_bit32_queue qout_op1_5(Q_SIZE);
-c_bit8_queue qin_op1_6(Q_SIZE_2);
-c_bit32_queue qout_op1_6(Q_SIZE);
+  uchar in_[x_size* y_size]; 
+  int r[x_size * y_size];
+  uchar bp_arr[516];
+  uchar* bp;
+  uchar mid[x_size * y_size];
+  int max_no = 2650;
+  bit[8] temp8;
+  bit[32] temp32;
 
-susan_edges_op1 se_op1_0(_3, _13, qin_op1_0, qout_op1_0);
-susan_edges_op1 se_op1_1(_13, _23, qin_op1_1, qout_op1_1);
-susan_edges_op1 se_op1_2(_23, _33, qin_op1_2, qout_op1_2);
-susan_edges_op1 se_op1_3(_33, _43, qin_op1_3, qout_op1_3);
-susan_edges_op1 se_op1_4(_43, _53, qin_op1_4, qout_op1_4);
-susan_edges_op1 se_op1_5(_53, _63, qin_op1_5, qout_op1_5);
-susan_edges_op1 se_op1_6(_63, _73, qin_op1_6, qout_op1_6);
+  float z;
+  int   do_symmetry, i, j, m, n, a, b, x, y, w;
+  uchar c;
+  uchar *p; 
+  uchar *cp;    
 
   void main(void)
   {
-    const int x_size = 76;
-    const int y_size = 95;
+    memset (mid, 100, x_size*y_size);
 
-    uchar in_[x_size* y_size]; 
-    int r[x_size * y_size];
-    uchar mid[x_size * y_size];
-    uchar bp_arr[516];
-    uchar* bp;
-    int max_no = 2650;
-    int k;
-    bit[8] temp8;
-    bit[32] temp32;
-
-    float z;
-    int   do_symmetry, i, j, m, n, a, b, x, y, w;
-    uchar c;
-    uchar *p; 
-    uchar *cp;    
-
-//    printf("susan_edges\n");
-
-    for(k = 0; k < 516; k++)
+    for(i = 0; i < x_size*y_size; i++)
     {
-      bp_receiver.receive(&temp8);
-      bp_arr[k] = temp8;
-//printf("%x ", bp_arr[k]);
+      inputs.receive(&temp8);
+      in_[i] = temp8;
     } 
-bp = bp_arr+258;
-//    for(k = 0; k < 258; k++)
-//    {
-//printf("%x ", *(bp - k));
-//    } 
-
-//printf("in values in susan edges\n");
-    for(k = 0; k < x_size * y_size; k++)
+    for(i = 0; i < 516; i++)
     {
-      in_image2edges.receive(&temp8);
-      in_[k] = temp8;
-//printf("%d ", in_[k]);
-    }    
-//for(k = 0; k < x_size * y_size; k++)
-//printf("%d ", in_[k]);
-
-
-
-//-----------------------------//
-
-//printf("size of %d\n", sizeof(int));
-
-  memset (r,0,x_size * y_size * sizeof(int));
-  memset (mid, 100, x_size*y_size);
-    
-  
-  for(i = 0; i < x_size*y_size; i++)
-  {
-    temp8 = in_[i];
-    qin_op1_0.send(temp8);
-    qin_op1_1.send(temp8);
-    qin_op1_2.send(temp8);
-    qin_op1_3.send(temp8);
-    qin_op1_4.send(temp8);
-    qin_op1_5.send(temp8);
-    qin_op1_6.send(temp8);
-  } 
-  for(i = 0; i < 516; i++)
-  {
-    temp8 = bp_arr[i];
-    qin_op1_0.send(temp8);
-    qin_op1_1.send(temp8);
-    qin_op1_2.send(temp8);
-    qin_op1_3.send(temp8);
-    qin_op1_4.send(temp8);
-    qin_op1_5.send(temp8);
-    qin_op1_6.send(temp8);
-  } 
-  par {
-    se_op1_0.main();
-    se_op1_1.main();
-    se_op1_2.main();
-    se_op1_3.main();
-    se_op1_4.main();
-    se_op1_5.main();
-    se_op1_6.main();
-  }
-  for(i = 0; i < x_size*y_size; i++)
-  {
-    qout_op1_0.receive(&temp32);    
-    r[i] += temp32;
-    qout_op1_1.receive(&temp32);    
-    r[i] += temp32;
-    qout_op1_2.receive(&temp32);    
-    r[i] += temp32;
-    qout_op1_3.receive(&temp32);    
-    r[i] += temp32;
-    qout_op1_4.receive(&temp32);    
-    r[i] += temp32;
-    qout_op1_5.receive(&temp32);    
-    r[i] += temp32;
-    qout_op1_6.receive(&temp32);    
-    r[i] += temp32;
-  } 
-
-/*  
-  for (i=3;i<y_size-3;i++)
-    for (j=3;j<x_size-3;j++)
+      inputs.receive(&temp8);
+      bp_arr[i] = temp8;
+    } 
+bp = bp_arr +258;
+    for(i = 0; i < x_size*y_size; i++)
     {
-      n=100;
-      p=in_ + (i-3)*x_size + j - 1;
-      cp=bp + in_[i*x_size+j];
+      inputs1.receive(&temp32);
+      r[i] = temp32;
+    } 
 
-      
-//printf("%x, %x, %x, %x, %x, %x, %x\n", n, *in_, *p, cp, *bp, *(cp-*p), in_[i*x_size+j]);
-      n+=*(cp-*p);
-      p++;
-//printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
-      n+=*(cp-*p);
-      p++;
-//printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
-      n+=*(cp-*p);
-      p+=x_size-3; 
-//printf("%d, %c, %c, %c, %c, %c\n", n, *in_, *p, *cp, *bp, *(cp-*p));
-
-
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p);
-      p+=x_size-5;
-
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p);
-      p+=x_size-6;
-
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p);
-      p+=2;
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p);
-      p+=x_size-6;
-
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p);
-      p+=x_size-5;
-
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p);
-      p+=x_size-3;
-
-      n+=*(cp-*p++);
-      n+=*(cp-*p++);
-      n+=*(cp-*p);
-
-      if (n<=max_no)
-        r[i*x_size+j] = max_no - n;
-    }
-*/
   for (i=4;i<y_size-4;i++)
-    for (j=4;j<x_size-4;j++)
+    for (j=start_j;j<end_j;j++)
     {
       if (r[i*x_size+j]>0)
       {
@@ -490,7 +321,227 @@ bp = bp_arr+258;
         }
       }
     }
-   
+
+    for(i = 0; i < x_size*y_size; i++)
+    {
+      temp8 = mid[i];
+      outputs.send(temp8);
+    } 
+
+  } 
+};
+
+
+behavior susan_edges(i_bit8_receiver bp_receiver, i_bit8_receiver in_image2edges, i_bit32_sender r_sender, i_bit8_sender mid_edges2thin, i_bit8_sender in_edges2draw)
+{
+const unsigned long Q_SIZE = 76*95*5;
+const unsigned long Q_SIZE_2 = (76*95 + 516)*5;
+const int _3 = 3;
+const int _13 = 13;
+const int _23 = 23;
+const int _33 = 33;
+const int _43 = 43;
+const int _53 = 53;
+const int _63 = 63;
+const int _73 = 73;
+
+c_bit8_queue qin_op1_0(Q_SIZE_2);
+c_bit32_queue qout_op1_0(Q_SIZE);
+c_bit8_queue qin_op1_1(Q_SIZE_2);
+c_bit32_queue qout_op1_1(Q_SIZE);
+c_bit8_queue qin_op1_2(Q_SIZE_2);
+c_bit32_queue qout_op1_2(Q_SIZE);
+c_bit8_queue qin_op1_3(Q_SIZE_2);
+c_bit32_queue qout_op1_3(Q_SIZE);
+c_bit8_queue qin_op1_4(Q_SIZE_2);
+c_bit32_queue qout_op1_4(Q_SIZE);
+c_bit8_queue qin_op1_5(Q_SIZE_2);
+c_bit32_queue qout_op1_5(Q_SIZE);
+c_bit8_queue qin_op1_6(Q_SIZE_2);
+c_bit32_queue qout_op1_6(Q_SIZE);
+
+susan_edges_op1 se_op1_0(_3, _13, qin_op1_0, qout_op1_0);
+susan_edges_op1 se_op1_1(_13, _23, qin_op1_1, qout_op1_1);
+susan_edges_op1 se_op1_2(_23, _33, qin_op1_2, qout_op1_2);
+susan_edges_op1 se_op1_3(_33, _43, qin_op1_3, qout_op1_3);
+susan_edges_op1 se_op1_4(_43, _53, qin_op1_4, qout_op1_4);
+susan_edges_op1 se_op1_5(_53, _63, qin_op1_5, qout_op1_5);
+susan_edges_op1 se_op1_6(_63, _73, qin_op1_6, qout_op1_6);
+
+const int _4 = 4;
+const int _21 = 21;
+const int _38 = 38;
+const int _55 = 55;
+const int _72 = 72;
+
+c_bit8_queue qin_op2_0(Q_SIZE_2);
+c_bit32_queue qin1_op2_0(Q_SIZE);
+c_bit8_queue qout_op2_0(Q_SIZE);
+c_bit8_queue qin_op2_1(Q_SIZE_2);
+c_bit32_queue qin1_op2_1(Q_SIZE);
+c_bit8_queue qout_op2_1(Q_SIZE);
+c_bit8_queue qin_op2_2(Q_SIZE_2);
+c_bit32_queue qin1_op2_2(Q_SIZE);
+c_bit8_queue qout_op2_2(Q_SIZE);
+c_bit8_queue qin_op2_3(Q_SIZE_2);
+c_bit32_queue qin1_op2_3(Q_SIZE);
+c_bit8_queue qout_op2_3(Q_SIZE);
+
+susan_edges_op2 se_op2_0(_4, _21, qin_op2_0, qin1_op2_0, qout_op2_0);
+susan_edges_op2 se_op2_1(_21, _38, qin_op2_1, qin1_op2_1, qout_op2_1);
+susan_edges_op2 se_op2_2(_38, _55, qin_op2_2, qin1_op2_2, qout_op2_2);
+susan_edges_op2 se_op2_3(_55, _72, qin_op2_3, qin1_op2_3, qout_op2_3);
+
+  void main(void)
+  {
+    const int x_size = 76;
+    const int y_size = 95;
+
+    uchar in_[x_size* y_size]; 
+    int r[x_size * y_size];
+    uchar mid[x_size * y_size];
+    uchar bp_arr[516];
+    uchar* bp;
+    int max_no = 2650;
+    int k;
+    bit[8] temp8;
+    bit[32] temp32;
+
+    float z;
+    int   do_symmetry, i, j, m, n, a, b, x, y, w;
+    uchar c;
+    uchar *p; 
+    uchar *cp;    
+
+//    printf("susan_edges\n");
+
+    for(k = 0; k < 516; k++)
+    {
+      bp_receiver.receive(&temp8);
+      bp_arr[k] = temp8;
+//printf("%x ", bp_arr[k]);
+    } 
+bp = bp_arr+258;
+//    for(k = 0; k < 258; k++)
+//    {
+//printf("%x ", *(bp - k));
+//    } 
+
+//printf("in values in susan edges\n");
+    for(k = 0; k < x_size * y_size; k++)
+    {
+      in_image2edges.receive(&temp8);
+      in_[k] = temp8;
+//printf("%d ", in_[k]);
+    }    
+//for(k = 0; k < x_size * y_size; k++)
+//printf("%d ", in_[k]);
+
+
+
+//-----------------------------//
+
+//printf("size of %d\n", sizeof(int));
+
+  memset (r,0,x_size * y_size * sizeof(int));
+  memset (mid, 100, x_size*y_size);
+    
+  
+  for(i = 0; i < x_size*y_size; i++)
+  {
+    temp8 = in_[i];
+    qin_op1_0.send(temp8);
+    qin_op1_1.send(temp8);
+    qin_op1_2.send(temp8);
+    qin_op1_3.send(temp8);
+    qin_op1_4.send(temp8);
+    qin_op1_5.send(temp8);
+    qin_op1_6.send(temp8);
+  } 
+  for(i = 0; i < 516; i++)
+  {
+    temp8 = bp_arr[i];
+    qin_op1_0.send(temp8);
+    qin_op1_1.send(temp8);
+    qin_op1_2.send(temp8);
+    qin_op1_3.send(temp8);
+    qin_op1_4.send(temp8);
+    qin_op1_5.send(temp8);
+    qin_op1_6.send(temp8);
+  } 
+  par {
+    se_op1_0.main();
+    se_op1_1.main();
+    se_op1_2.main();
+    se_op1_3.main();
+    se_op1_4.main();
+    se_op1_5.main();
+    se_op1_6.main();
+  }
+  for(i = 0; i < x_size*y_size; i++)
+  {
+    qout_op1_0.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_1.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_2.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_3.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_4.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_5.receive(&temp32);    
+    r[i] += temp32;
+    qout_op1_6.receive(&temp32);    
+    r[i] += temp32;
+  } 
+//------------------------------------
+ 
+  for(i = 0; i < x_size*y_size; i++)
+  {
+    temp8 = in_[i];
+    qin_op2_0.send(temp8);
+    qin_op2_1.send(temp8);
+    qin_op2_2.send(temp8);
+    qin_op2_3.send(temp8);
+  } 
+  for(i = 0; i < 516; i++)
+  {
+    temp8 = bp_arr[i];
+    qin_op2_0.send(temp8);
+    qin_op2_1.send(temp8);
+    qin_op2_2.send(temp8);
+    qin_op2_3.send(temp8);
+  } 
+  for(i = 0; i < x_size*y_size; i++)
+  {
+    temp32 = r[i];
+    qin1_op2_0.send(temp32);
+    qin1_op2_1.send(temp32);
+    qin1_op2_2.send(temp32);
+    qin1_op2_3.send(temp32);
+  } 
+  par {
+    se_op2_0.main();
+    se_op2_1.main();
+    se_op2_2.main();
+    se_op2_3.main();
+  }
+  for(i = 0; i < x_size*y_size; i++)
+  {
+    qout_op2_0.receive(&temp8);    
+    if(temp8 != 100)
+      mid[i] = temp8;
+    qout_op2_1.receive(&temp8);    
+    if(temp8 != 100)
+      mid[i] = temp8;
+    qout_op2_2.receive(&temp8);    
+    if(temp8 != 100)
+      mid[i] = temp8;
+    qout_op2_3.receive(&temp8);    
+    if(temp8 != 100)
+      mid[i] = temp8;
+  } 
 
 //-------------//
 //printf("r values out susan edges\n");

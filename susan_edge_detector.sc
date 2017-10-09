@@ -12,7 +12,7 @@ import "c_bit8_queue";
 behavior Main(void)
 {
 
-    const unsigned long Q_SIZE = 76*100;
+    const unsigned long Q_SIZE = 76*95*5;
     
     c_handshake start;
     c_bit8_queue input(Q_SIZE);
