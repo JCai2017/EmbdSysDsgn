@@ -1,4 +1,6 @@
 #include "susan.sh"
+#include <stdio.h>
+#include <sim.sh>
 
 import "c_double_handshake_signal";
 import "c_double_handshake";

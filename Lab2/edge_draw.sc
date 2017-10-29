@@ -83,6 +83,7 @@ behavior EdgeDraw_PartA(uchar image_buffer[7220], uchar mid[7220])
             edge_draw_a_thread_0;
             edge_draw_a_thread_1;
         }    
+      waitfor(12000000);
     }     
 };
 
@@ -97,6 +98,7 @@ behavior EdgeDraw_PartB(uchar image_buffer[7220], uchar mid[7220])
             edge_draw_b_thread_0;
             edge_draw_b_thread_1;
         }    
+      waitfor(12000000);
     }     
 };
 

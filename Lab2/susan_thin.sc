@@ -228,6 +228,7 @@ behavior SusanThin(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE])
             susan_thin_thread_0;
             susan_thin_thread_1;
         }                   
+       waitfor(6400000);
     }
 
 };

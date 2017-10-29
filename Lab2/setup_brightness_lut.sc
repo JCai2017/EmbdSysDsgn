@@ -1,4 +1,6 @@
 #include "susan.sh"
+//#include <sim.sh>
+//#include <stdio.h>
 
 behavior SetupBrightnessLutThread(uchar bp[516], in int thID)
 {
@@ -35,6 +37,8 @@ behavior SetupBrightnessLut(uchar bp[516])
             setup_brightness_thread_0;
             setup_brightness_thread_1;
         }
+        waitfor(2700);
+//        printf("%llu\n", now());
     }
 
 };
