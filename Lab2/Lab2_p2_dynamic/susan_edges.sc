@@ -2,10 +2,16 @@
 
 import "c_uchar7220_queue";
 import "c_int7220_queue";
+import "OS_channel";
+import "Init";
 
-behavior SusanEdgesThread_PartA(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], uchar bp[516],  in int thID)
+behavior SusanEdgesThread_PartA(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], uchar bp[516],  in int thID, OSAPI os) implements Init
 {
-    
+    int my_id; 
+    int init(void) {
+      my_id = os.create();
+      return my_id;
+    } 
          
     void main(void) {
 
@@ -13,6 +19,7 @@ behavior SusanEdgesThread_PartA(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZ
         int i, j, n;
         uchar *p,*cp;
         
+        os.waitTask(my_id);
         max_no = MAX_NO_EDGES;
         //for (i=3;i<Y_SIZE-3;i++)
         for (i=3+(Y_SIZE-3-3)/PROCESSORS*thID; i<3+(Y_SIZE-3-3)/PROCESSORS*(thID+1) + (thID+1==PROCESSORS && (Y_SIZE-3-3)%PROCESSORS!=0 ? (Y_SIZE-3-3)%PROCESSORS : 0); i++)
@@ -75,15 +82,20 @@ behavior SusanEdgesThread_PartA(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZ
                 if (n<=max_no)
                     r[i*X_SIZE+j] = max_no - n;
             }
+      os.kill();
 
                                
     }           
     
 };  
 
-behavior SusanEdgesThread_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], uchar bp[516], in int thID)
+behavior SusanEdgesThread_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], uchar bp[516], in int thID, OSAPI os) implements Init
 {
-    
+    int my_id; 
+    int init(void) {
+      my_id = os.create();
+      return my_id;
+    }
          
     void main(void) {
 
@@ -92,6 +104,7 @@ behavior SusanEdgesThread_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZ
         int   do_symmetry, i, j, m, n, a, b, x, y, w;
         uchar c,*p,*cp;
         
+        os.waitTask(my_id);
         max_no = MAX_NO_EDGES;
 
              
@@ -257,8 +270,8 @@ behavior SusanEdgesThread_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZ
                         }
                     }
                 }                            
+        os.kill();
     }           
-    
 };  
 
 behavior  SusanEdges_ReadInput(i_uchar7220_receiver in_image, uchar in_image_buffer[IMAGE_SIZE], int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE]) 
@@ -292,8 +305,8 @@ behavior SusanEdges_PartA (uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], u
 
     void main(void) {
         my_id = os.getMyID();
-        my_id0 = susan_edges_b_thread_0.init();        
-        my_id1 = susan_edges_b_thread_1.init();        
+        my_id0 = susan_edges_a_thread_0.init();        
+        my_id1 = susan_edges_a_thread_1.init();        
 
         os.par_start(my_id);
         par {

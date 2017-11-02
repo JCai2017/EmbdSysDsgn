@@ -3035,10 +3035,16 @@ typedef unsigned char uchar;
 
 import "c_uchar7220_queue";
 import "c_int7220_queue";
+import "OS_channel";
+import "Init";
 
-behavior SusanEdgesThread_PartA(uchar image_buffer[7220], int r[7220], uchar bp[516], in int thID)
+behavior SusanEdgesThread_PartA(uchar image_buffer[7220], int r[7220], uchar bp[516], in int thID, OSAPI os) implements Init
 {
-
+    int my_id;
+    int init(void) {
+      my_id = os.create();
+      return my_id;
+    }
 
     void main(void) {
 
@@ -3046,6 +3052,7 @@ behavior SusanEdgesThread_PartA(uchar image_buffer[7220], int r[7220], uchar bp[
         int i, j, n;
         uchar *p,*cp;
 
+        os.waitTask(my_id);
         max_no = 2650;
 
         for (i=3+(95 -3-3)/2*thID; i<3+(95 -3-3)/2*(thID+1) + (thID+1==2 && (95 -3-3)%2!=0 ? (95 -3-3)%2 : 0); i++)
@@ -3108,15 +3115,20 @@ behavior SusanEdgesThread_PartA(uchar image_buffer[7220], int r[7220], uchar bp[
                 if (n<=max_no)
                     r[i*76 +j] = max_no - n;
             }
+      os.kill();
 
 
     }
 
 };
 
-behavior SusanEdgesThread_PartB(uchar image_buffer[7220], int r[7220], uchar mid[7220], uchar bp[516], in int thID)
+behavior SusanEdgesThread_PartB(uchar image_buffer[7220], int r[7220], uchar mid[7220], uchar bp[516], in int thID, OSAPI os) implements Init
 {
-
+    int my_id;
+    int init(void) {
+      my_id = os.create();
+      return my_id;
+    }
 
     void main(void) {
 
@@ -3125,6 +3137,7 @@ behavior SusanEdgesThread_PartB(uchar image_buffer[7220], int r[7220], uchar mid
         int do_symmetry, i, j, m, n, a, b, x, y, w;
         uchar c,*p,*cp;
 
+        os.waitTask(my_id);
         max_no = 2650;
 
 
@@ -3290,8 +3303,8 @@ behavior SusanEdgesThread_PartB(uchar image_buffer[7220], int r[7220], uchar mid
                         }
                     }
                 }
+        os.kill();
     }
-
 };
 
 behavior SusanEdges_ReadInput(i_uchar7220_receiver in_image, uchar in_image_buffer[7220], int r[7220], uchar mid[7220])
@@ -3316,35 +3329,51 @@ behavior SusanEdges_WriteOutput(i_int7220_sender out_r, i_uchar7220_sender out_m
     }
 };
 
-behavior SusanEdges_PartA (uchar image_buffer[7220], int r[7220], uchar bp[516])
+behavior SusanEdges_PartA (uchar image_buffer[7220], int r[7220], uchar bp[516], OSAPI os)
 {
-    SusanEdgesThread_PartA susan_edges_a_thread_0(image_buffer, r, bp, 0);
-    SusanEdgesThread_PartA susan_edges_a_thread_1(image_buffer, r, bp, 1);
+    SusanEdgesThread_PartA susan_edges_a_thread_0(image_buffer, r, bp, 0, os);
+    SusanEdgesThread_PartA susan_edges_a_thread_1(image_buffer, r, bp, 1, os);
+
+    int my_id, my_id0, my_id1;
 
     void main(void) {
+        my_id = os.getMyID();
+        my_id0 = susan_edges_a_thread_0.init();
+        my_id1 = susan_edges_a_thread_1.init();
+
+        os.par_start(my_id);
         par {
             susan_edges_a_thread_0;
             susan_edges_a_thread_1;
         }
-        waitfor(19000000);
+        os.par_end(my_id);
+        os.timewait(19000000);
     }
 };
 
-behavior SusanEdges_PartB(uchar image_buffer[7220], int r[7220], uchar mid[7220], uchar bp[516])
+behavior SusanEdges_PartB(uchar image_buffer[7220], int r[7220], uchar mid[7220], uchar bp[516], OSAPI os)
 {
-    SusanEdgesThread_PartB susan_edges_b_thread_0(image_buffer, r, mid, bp, 0);
-    SusanEdgesThread_PartB susan_edges_b_thread_1(image_buffer, r, mid, bp, 1);
+    SusanEdgesThread_PartB susan_edges_b_thread_0(image_buffer, r, mid, bp, 0, os);
+    SusanEdgesThread_PartB susan_edges_b_thread_1(image_buffer, r, mid, bp, 1, os);
+
+    int my_id, my_id0, my_id1;
 
     void main(void) {
+        my_id = os.getMyID();
+        my_id0 = susan_edges_b_thread_0.init();
+        my_id1 = susan_edges_b_thread_1.init();
+
+        os.par_start(my_id);
         par {
             susan_edges_b_thread_0;
             susan_edges_b_thread_1;
         }
-        waitfor(20000000);
+        os.par_end(my_id);
+        os.timewait(20000000);
     }
 };
 
-behavior SusanEdges(i_uchar7220_receiver in_image, i_int7220_sender out_r, i_uchar7220_sender out_mid, uchar bp[516], i_uchar7220_sender out_image)
+behavior SusanEdges(i_uchar7220_receiver in_image, i_int7220_sender out_r, i_uchar7220_sender out_mid, uchar bp[516], i_uchar7220_sender out_image, OSAPI os)
 {
 
     uchar image_buffer[7220];
@@ -3353,8 +3382,8 @@ behavior SusanEdges(i_uchar7220_receiver in_image, i_int7220_sender out_r, i_uch
 
     SusanEdges_ReadInput susan_edges_read_input(in_image, image_buffer, r, mid);
     SusanEdges_WriteOutput susan_edges_write_output(out_r, out_mid, out_image, r, mid, image_buffer);
-    SusanEdges_PartA susan_edges_a(image_buffer, r, bp);
-    SusanEdges_PartB susan_edges_b(image_buffer, r, mid, bp);
+    SusanEdges_PartA susan_edges_a(image_buffer, r, bp, os);
+    SusanEdges_PartB susan_edges_b(image_buffer, r, mid, bp, os);
 
 
     void main(void) {

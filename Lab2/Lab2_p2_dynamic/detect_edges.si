@@ -3046,7 +3046,7 @@ behavior DetectEdges(i_uchar7220_receiver in_image, i_int7220_sender out_r, i_uc
     uchar bp[516];
 
     SetupBrightnessLut setup_brightness_lut(bp, os);
-    SusanEdges susan_edges(in_image, out_r, out_mid, bp, out_image);
+    SusanEdges susan_edges(in_image, out_r, out_mid, bp, out_image, os);
 
     void main(void) {
         setup_brightness_lut.main();
