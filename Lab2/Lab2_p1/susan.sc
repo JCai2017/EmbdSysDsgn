@@ -6,7 +6,6 @@ import "c_int7220_queue";
 import "detect_edges";
 import "susan_thin";
 import "edge_draw";
-
      
 behavior Susan(i_uchar7220_receiver in_image, i_uchar7220_sender out_image) 
 {
