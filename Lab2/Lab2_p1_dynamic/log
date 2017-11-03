@@ -1,0 +1,279 @@
+./susan_edge_detector
+Starting process 1...
+create: 0
+create: 1
+create: 2
+create: 3
+dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+DETECT CREATED
+before edges
+THIN CREATED
+DRAW CREATED
+starting edges
+starting brightness
+create: 4
+create: 5
+starting brightness
+dispatch: 2
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+starting brightness par
+thin_b4_r
+dispatch: 3
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 1
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+starting edge draw
+edge draw, read input, in receive
+dispatch: 4
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+brightness thread satart
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+kill: 4
+brightness thread satart
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 1, active 1
+kill: 5
+dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 0, active 0
+ending brightness
+yield dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 0, active 0
+between brightness and susan edges
+start susan edges
+create: 4
+create: 5
+dispatch: 4
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+kill: 4
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 1, active 1
+kill: 5
+dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 0, active 0
+yield dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 0, active 0
+se_parta_done
+create: 4
+create: 5
+dispatch: 4
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+kill: 4
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 1, active 1
+kill: 5
+dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 0, active 0
+yield dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 0, active 0
+se_partb_done
+DETECT KILLED
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 0, active 0
+Task 5: alive 0, active 0
+starting brightness
+create: 4
+create: 5
+starting brightness
+dispatch: 4
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 0
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+starting brightness par
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 1
+Task 3: alive 1, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+dispatch: 2
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+brightness thread satart
+dispatch: 3
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+kill: 2
+brightness thread satart
+dispatch: 4
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 0, active 0
+Task 3: alive 1, active 1
+Task 4: alive 1, active 1
+Task 5: alive 1, active 1
+kill: 3
+thin_between_r_m
+thin_after_m
+create: 2
+create: 3
+dispatch: 5
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+Task 4: alive 1, active 0
+Task 5: alive 1, active 1
+edge draw, read input, mid receive
+dispatch: 2
+Task 0: alive 1, active 0
+Task 1: alive 1, active 0
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+Task 4: alive 1, active 0
+Task 5: alive 1, active 0
+dispatch: 3
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+Task 4: alive 1, active 0
+Task 5: alive 1, active 0
+dispatch: 1
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 1
+Task 3: alive 1, active 1
+Task 4: alive 1, active 0
+Task 5: alive 1, active 0
+kill: 3
+dispatch: 2
+Task 0: alive 1, active 0
+Task 1: alive 1, active 1
+Task 2: alive 1, active 1
+Task 3: alive 0, active 0
+Task 4: alive 1, active 0
+Task 5: alive 1, active 0
+kill: 1
+dispatch: 4
+Task 0: alive 1, active 0
+Task 1: alive 0, active 0
+Task 2: alive 1, active 1
+Task 3: alive 0, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 0
+ending brightness
+yield dispatch: 2
+Task 0: alive 1, active 0
+Task 1: alive 0, active 0
+Task 2: alive 1, active 1
+Task 3: alive 0, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 0
+yield dispatch: 4
+Task 0: alive 1, active 0
+Task 1: alive 0, active 0
+Task 2: alive 1, active 1
+Task 3: alive 0, active 0
+Task 4: alive 1, active 1
+Task 5: alive 1, active 0
+between brightness and susan edges
+start susan edges
+diff -s out.pgm golden.pgm
+Binary files out.pgm and golden.pgm differ
