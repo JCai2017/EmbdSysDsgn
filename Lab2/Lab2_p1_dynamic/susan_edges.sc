@@ -316,7 +316,7 @@ behavior SusanEdges_PartA (uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], u
         }
         os.par_end(my_id);
         os.timewait(19000000);
-        printf("se_parta_done\n");
+        //printf("se_parta_done\n");
     }
 };
 
@@ -339,7 +339,7 @@ behavior SusanEdges_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZE], uc
         }  
         os.par_end(my_id);
         os.timewait(20000000);
-        printf("se_partb_done\n");
+        //printf("se_partb_done\n");
     }
 };
 
@@ -357,7 +357,7 @@ behavior SusanEdges(i_uchar7220_receiver in_image, i_int7220_sender_os out_r, i_
 
                  
     void main(void) {
-        printf("start susan edges\n"); 
+        //printf("start susan edges\n"); 
         fsm {
                     susan_edges_read_input: goto susan_edges_a;
                     susan_edges_a: goto susan_edges_b;

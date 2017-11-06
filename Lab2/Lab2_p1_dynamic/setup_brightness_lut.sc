@@ -23,7 +23,7 @@ behavior SetupBrightnessLutThread(uchar bp[516], in int thID, OSAPI os) implemen
         form = 6;
       
         os.waitTask(my_id);
-printf("brightness thread satart\n");
+//printf("brightness thread satart\n");
         //for(k=-256;k<257;k++)
        for(k=(-256)+512/PROCESSORS*thID; k<(-256)+512/PROCESSORS*thID+512/PROCESSORS+1; k++){
             temp=((float)k)/((float)thresh);
@@ -51,15 +51,15 @@ behavior SetupBrightnessLut(uchar bp[516], OSAPI os)
         my_id  = os.getMyID();
         my_id0 = setup_brightness_thread_0.init(); 
         my_id1 = setup_brightness_thread_1.init();       
-printf("starting brightness\n");
+//printf("starting brightness\n");
         os.par_start(my_id);
-printf("starting brightness par\n");
+//printf("starting brightness par\n");
         par {
             setup_brightness_thread_0;
             setup_brightness_thread_1;
         }
         os.par_end(my_id);
-printf("ending brightness\n");
+//printf("ending brightness\n");
         os.timewait(2700);
 //        printf("%llu\n", now());
     }

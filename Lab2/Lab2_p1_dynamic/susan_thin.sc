@@ -23,7 +23,7 @@ behavior SusanThinThread(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], in int thID, 
         uchar *mp;
 
         os.waitTask(my_id);
-printf("susan thin, thread, start\n");
+//printf("susan thin, thread, start\n");
 	    for (i=4+(Y_SIZE-4-4)/PROCESSORS*thID; i<4+(Y_SIZE-4-4)/PROCESSORS*(thID+1) + (thID+1==PROCESSORS && (Y_SIZE-4-4)%PROCESSORS!=0 ? (Y_SIZE-4-4)%PROCESSORS : 0); i++)         		          
         //for (i=4;i<Y_SIZE-4;i++)
             for (j=4;j<X_SIZE-4;j++)
@@ -208,7 +208,7 @@ printf("susan thin, thread, start\n");
                     }
                 } 
          os.kill();
-printf("susan thin, thread, done\n");
+//printf("susan thin, thread, done\n");
     }                
 };
 
@@ -216,20 +216,20 @@ behavior SusanThin_ReadInput(i_int7220_receiver_os in_r, i_uchar7220_receiver_os
 {
 
     void main(void) {
-printf("thin_b4_r\n");
+//printf("thin_b4_r\n");
         in_r.receive(&r);
-printf("thin_between_r_m\n");
+//printf("thin_between_r_m\n");
         in_mid.receive(&mid);
-printf("thin_after_m\n");
+//printf("thin_after_m\n");
     }
 };
 
 behavior SusanThin_WriteOutput(i_uchar7220_sender_os out_mid, uchar mid[IMAGE_SIZE])
 {
     void main(void) {
-printf("susan thin, write output, mid send\n");
+//printf("susan thin, write output, mid send\n");
         out_mid.send(mid);      
-        printf("THIN KILLED\n");
+        //printf("THIN KILLED\n");
     }
 };
 
@@ -252,7 +252,7 @@ behavior SusanThin(int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE], OSAPI os)
             susan_thin_thread_1;
         }                   
         os.par_end(my_id);
-printf("susan thin, par threads, done\n");
+//printf("susan thin, par threads, done\n");
         os.timewait(6400000);
     }
 
@@ -276,7 +276,7 @@ behavior Thin(i_int7220_receiver_os in_r, i_uchar7220_receiver_os in_mid, i_ucha
     }
     
     void main(void) {
-        printf("THIN CREATED\n");
+        //printf("THIN CREATED\n");
         os.waitTask(my_id);
         fsm {
             susan_thin_read_input: goto susan_thin;

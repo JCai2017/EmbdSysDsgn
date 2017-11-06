@@ -16,12 +16,12 @@ behavior DetectEdges(i_uchar7220_receiver in_image,  i_int7220_sender_os out_r, 
     SusanEdges susan_edges(in_image, out_r, out_mid, bp, out_image, os);
 
     void main(void) {
-printf("starting brightness\n");
+//printf("starting brightness\n");
         setup_brightness_lut.main(); 
-printf("between brightness and susan edges\n");
+//printf("between brightness and susan edges\n");
         susan_edges.main();
 
-    printf("DETECT KILLED\n");
+    //printf("DETECT KILLED\n");
     os.print();
     }
 };
@@ -38,10 +38,10 @@ behavior Edges(i_uchar7220_receiver in_image,  i_int7220_sender_os out_r, i_ucha
     }
     
     void main(void) {
-printf("DETECT CREATED\n");
-printf("before edges\n");
+//printf("DETECT CREATED\n");
+//printf("before edges\n");
         os.waitTask(my_id);
-printf("starting edges\n");
+//printf("starting edges\n");
         fsm{
             detect_edges: {goto detect_edges;}
         }
