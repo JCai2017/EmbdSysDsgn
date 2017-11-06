@@ -16,6 +16,9 @@ interface OSAPI
    void par_start(int task_ind);
    void par_end(int task_ind);
    void timewait(int time);
+   int pre_wait(void);
+   void post_wait(int task_ind);
+   void print(void);
 };
 
 
@@ -35,6 +38,12 @@ channel OS_channel implements OSAPI{
    event E1;
    event E2;
    event E3;
+   event E4;
+   event E5;
+   event E6;
+   event E7;
+   event E8;
+   event E9;
 
    void notifyTask(int task_ind)
    {
@@ -48,8 +57,21 @@ channel OS_channel implements OSAPI{
                break;
        case 3: notify(E3);
                break;
+       case 4: notify(E4);
+               break;
+       case 5: notify(E5);
+               break;
+       case 6: notify(E6);
+               break;
+       case 7: notify(E7);
+               break;
+       case 8: notify(E8);
+               break;
+       case 9: notify(E9);
+               break;
        default:
           while(1);
+          //printfg("not enough events\n");
           break;
      }
    }
@@ -66,9 +88,29 @@ channel OS_channel implements OSAPI{
                break;
        case 3: wait(E3);
                break;
+       case 4: wait(E4);
+               break;
+       case 5: wait(E5);
+               break;
+       case 6: wait(E6);
+               break;
+       case 7: wait(E7);
+               break;
+       case 8: wait(E8);
+               break;
+       case 9: wait(E9);
+               break;
        default:
+          //printfg("not enough events\n");
           while(1);
           break;
+     }
+   }
+        
+   void print(void) {
+     int i;
+     for ( i = 0; i < last_task; i++) {
+       //printfg("Task %d: alive %d, active %d\n", i, Tasks[i].alive, Tasks[i].active);
      }
    }
 
@@ -113,7 +155,7 @@ channel OS_channel implements OSAPI{
        i = last_task;
        last_task++;
      }
-printf("create: %d\n", i);
+//printfg("create: %d\n", i);
      return i;
    }
 
@@ -132,11 +174,12 @@ printf("create: %d\n", i);
          { 
            cur_task = (cur_task + i + 1) % last_task;
            notifyTask(cur_task); // should find one active task or will deadlock
-printf("dispatch: %d\n", cur_task);
+//printfg("dispatch: %d\n", cur_task);
 	   break;
          }
        }
      }
+print();
    }
 
    void kill()
@@ -146,7 +189,8 @@ printf("dispatch: %d\n", cur_task);
      my_task_ind = cur_task;
      dispatch(); // start next task
      Tasks[my_task_ind].alive = 0;     
-printf("kill: %d\n", my_task_ind);
+     Tasks[my_task_ind].active = 0;
+//printfg("kill: %d\n", my_task_ind);
    }
 
    void activate(int task_ind)
@@ -159,7 +203,7 @@ printf("kill: %d\n", my_task_ind);
      int my_task_ind;
 
      my_task_ind = cur_task;
-printf("yield ");
+//printfg("yield ");
      dispatch(); 
      waitTask(my_task_ind);
    }
@@ -171,11 +215,26 @@ printf("yield ");
 
    void par_end(int task_ind) {
       Tasks[task_ind].active = 1;
-      dispatch();
+      if (cur_task != task_ind) dispatch();
+      waitTask(task_ind);
    }
 
    void timewait(int time) {
      waitfor(time);
      yield();
+   }
+
+   int pre_wait(void) {
+     int my_id;
+     my_id = cur_task; 
+     Tasks[my_id].active = 0;
+     dispatch();
+     return my_id;
+   }
+
+   void post_wait(int task_ind) {
+     Tasks[task_ind].active = 1;
+     if (cur_task != task_ind) dispatch();
+     waitTask(task_ind);
    }
 };
