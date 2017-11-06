@@ -71,7 +71,7 @@ channel OS_channel implements OSAPI{
                break;
        default:
           while(1);
-          printf("not enough events\n");
+          //printfg("not enough events\n");
           break;
      }
    }
@@ -101,7 +101,7 @@ channel OS_channel implements OSAPI{
        case 9: wait(E9);
                break;
        default:
-          printf("not enough events\n");
+          //printfg("not enough events\n");
           while(1);
           break;
      }
@@ -110,7 +110,7 @@ channel OS_channel implements OSAPI{
    void print(void) {
      int i;
      for ( i = 0; i < last_task; i++) {
-       printf("Task %d: alive %d, active %d\n", i, Tasks[i].alive, Tasks[i].active);
+       //printfg("Task %d: alive %d, active %d\n", i, Tasks[i].alive, Tasks[i].active);
      }
    }
 
@@ -155,7 +155,7 @@ channel OS_channel implements OSAPI{
        i = last_task;
        last_task++;
      }
-printf("create: %d\n", i);
+//printfg("create: %d\n", i);
      return i;
    }
 
@@ -174,7 +174,7 @@ printf("create: %d\n", i);
          { 
            cur_task = (cur_task + i + 1) % last_task;
            notifyTask(cur_task); // should find one active task or will deadlock
-printf("dispatch: %d\n", cur_task);
+//printfg("dispatch: %d\n", cur_task);
 	   break;
          }
        }
@@ -190,7 +190,7 @@ print();
      dispatch(); // start next task
      Tasks[my_task_ind].alive = 0;     
      Tasks[my_task_ind].active = 0;
-printf("kill: %d\n", my_task_ind);
+//printfg("kill: %d\n", my_task_ind);
    }
 
    void activate(int task_ind)
@@ -203,7 +203,7 @@ printf("kill: %d\n", my_task_ind);
      int my_task_ind;
 
      my_task_ind = cur_task;
-printf("yield ");
+//printfg("yield ");
      dispatch(); 
      waitTask(my_task_ind);
    }
