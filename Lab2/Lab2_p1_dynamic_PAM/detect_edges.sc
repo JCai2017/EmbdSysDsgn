@@ -6,8 +6,9 @@ import "setup_brightness_lut";
 import "susan_edges";
 import "OS_channel";
 import "Init";
+import "i_receiver";
 
-behavior DetectEdges(i_uchar7220_receiver in_image,  i_int7220_sender_os out_r, i_uchar7220_sender_os out_mid, i_uchar7220_sender_os out_image, OSAPI os) 
+behavior DetectEdges(/*i_uchar7220_receiver*/ i_receiver in_image,  i_int7220_sender_os out_r, i_uchar7220_sender_os out_mid, i_uchar7220_sender_os out_image, OSAPI os) 
 {
 
     uchar bp[516];
@@ -26,7 +27,7 @@ behavior DetectEdges(i_uchar7220_receiver in_image,  i_int7220_sender_os out_r, 
     }
 };
 
-behavior Edges(i_uchar7220_receiver in_image,  i_int7220_sender_os out_r, i_uchar7220_sender_os out_mid, i_uchar7220_sender_os out_image, OSAPI os) implements Init
+behavior Edges(/*i_uchar7220_receiver*/ i_receiver in_image,  i_int7220_sender_os out_r, i_uchar7220_sender_os out_mid, i_uchar7220_sender_os out_image, OSAPI os) implements Init
 {
 
     DetectEdges detect_edges(in_image,  out_r, out_mid, out_image, os);

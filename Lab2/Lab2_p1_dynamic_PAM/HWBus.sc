@@ -323,11 +323,19 @@ channel HardwareBus()
     SlaveLink.SlaveWrite(addr, data, len);
   }
 
-  void MasterSyncReceive() {
+  void MasterSync0Receive() {
     MasterSync0.receive();
   }
   
-  void SlaveSyncSend() {
+  void SlaveSync0Send() {
     SlaveSync0.send();
+  }
+
+  void MasterSync1Receive() {
+    MasterSync1.receive();
+  }
+  
+  void SlaveSync1Send() {
+    SlaveSync1.send();
   }
 };

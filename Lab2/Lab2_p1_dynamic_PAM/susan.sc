@@ -3,6 +3,8 @@
 import "c_uchar7220_queue_os";
 import "c_int7220_queue_os";
 import "c_uchar7220_queue";
+import "i_receiver";
+import "i_sender";
 
 import "susan_thin";
 import "detect_edges";
@@ -10,7 +12,7 @@ import "edge_draw";
 import "OS_channel";
 import "Init";
      
-behavior Susan(i_uchar7220_receiver in_image, i_uchar7220_sender out_image, OSAPI os) implements Init
+behavior Susan(/*i_uchar7220_receiver*/i_receiver in_image, /*i_uchar7220_sender*/i_sender out_image, OSAPI os) implements Init
 {
 
     c_int7220_queue_os r(1ul, os);

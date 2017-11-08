@@ -3,10 +3,11 @@
 import "susan";
 import "read_image";
 import "write_image";
-import "c_uchar7220_queue";
+//import "c_uchar7220_queue";
+import "c_double_handshake";
 import "OS_channel";
 
-behavior PE1(i_uchar7220_receiver in_image, i_uchar7220_sender out_image)
+behavior PE1(/*i_uchar7220_receiver*/ i_receiver in_image, /*i_uchar7220_sender*/ i_sender out_image)
 {
   OS_channel os; 
   Susan TASK_PE1(in_image, out_image, os); // TASK_PE1
@@ -21,7 +22,7 @@ behavior PE1(i_uchar7220_receiver in_image, i_uchar7220_sender out_image)
   }
 };
 
-behavior INPUT(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_uchar7220_sender in_image)
+behavior INPUT(i_receive start, in uchar image_buffer[IMAGE_SIZE], /*i_uchar7220_sender*/ i_sender in_image)
 {
   ReadImage read_image(start, image_buffer, in_image);
   
@@ -30,7 +31,7 @@ behavior INPUT(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_uchar7220_s
   }
 };
 
-behavior OUTPUT(i_uchar7220_receiver out_image, i_sender out_image_susan)
+behavior OUTPUT(/*i_uchar7220_receiver*/ i_receiver out_image, i_sender out_image_susan)
 {
   WriteImage write_image(out_image, out_image_susan);
 
@@ -43,8 +44,10 @@ behavior OUTPUT(i_uchar7220_receiver out_image, i_sender out_image_susan)
 behavior Design(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_sender out_image_susan)
 {
 
-    c_uchar7220_queue in_image(1ul);
-    c_uchar7220_queue out_image(1ul);
+    //c_uchar7220_queue in_image(1ul); 
+    //c_uchar7220_queue out_image(1ul);
+    c_double_handshake in_image;
+    c_double_handshake out_image;
     
 //    ReadImage read_image(start, image_buffer, in_image);
 //    Susan susan(in_image, out_image);
