@@ -6,6 +6,7 @@ import "write_image";
 //import "c_uchar7220_queue";
 import "c_double_handshake";
 import "OS_channel";
+import "HWBus";
 
 behavior PE1(/*i_uchar7220_receiver*/ i_receiver in_image, /*i_uchar7220_sender*/ i_sender out_image)
 {
@@ -46,16 +47,24 @@ behavior Design(i_receive start, in uchar image_buffer[IMAGE_SIZE], i_sender out
 
     //c_uchar7220_queue in_image(1ul); 
     //c_uchar7220_queue out_image(1ul);
-    c_double_handshake in_image;
-    c_double_handshake out_image;
-    
+    //c_double_handshake in_image;
+    //c_double_handshake out_image;
+
+    const int INPUT_ADDR = 0;
+    const int OUTPUT_ADDR = 1;
+    HardwareBus bus;
+    MasterDriver in_image_master(bus, INPUT_ADDR);
+    SlaveDriver  in_image_slave(bus, INPUT_ADDR);
+    MasterDriver out_image_master(bus, OUTPUT_ADDR);
+    SlaveDriver out_image_slave(bus, OUTPUT_ADDR);    
+
 //    ReadImage read_image(start, image_buffer, in_image);
 //    Susan susan(in_image, out_image);
 //    WriteImage write_image(out_image, out_image_susan);
 
-    INPUT input(start, image_buffer, in_image);
-    PE1 pe1(in_image, out_image);
-    OUTPUT output(out_image, out_image_susan);
+    INPUT input(start, image_buffer, in_image_slave);
+    PE1 pe1(in_image_master, out_image_master);
+    OUTPUT output(out_image_slave, out_image_susan);
 
     void main(void) {
        par {

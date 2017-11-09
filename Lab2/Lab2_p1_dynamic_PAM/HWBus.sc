@@ -1,9 +1,12 @@
 //////////////////////////////////////////////////////////////////////
 // File:   	HWBus.sc
 //////////////////////////////////////////////////////////////////////
-
+#include <stdio.h>
+#include <sim.sh>;
 import "i_send";
 import "i_receive";
+import "i_sender";
+import "i_receiver";
 
 // Simple hardware bus
 
@@ -138,22 +141,37 @@ channel SlaveHardwareBus(in  signal unsigned bit[ADDR_WIDTH-1:0] A,
 
 /* -----  Physical layer, interrupt handling ----- */
 
-channel MasterHardwareSyncDetect(in signal unsigned bit[1] intr)
+channel MasterHardwareSyncDetect(in signal unsigned bit[1] intr, out signal unsigned bit[1] intr_clr)
   implements i_receive
 {
   void receive(void)
   {
-    wait(rising intr);
+      int val;
+      val = 0x01 & intr;
+//printf("Master sync waiting %llu %d\n", now(), val);
+//    wait(rising intr);
+//      wait intr;
+      while(val != 1) { val = 0x01 & intr; waitfor(1000);}
+      intr_clr = 1;
+      waitfor(5000);
+      intr_clr = 0;
+//printf("Master sync received\n");
   }
 };
 
-channel SlaveHardwareSyncGenerate(out signal unsigned bit[1] intr)
+channel SlaveHardwareSyncGenerate(out signal unsigned bit[1] intr, in signal unsigned bit[1] intr_clr)
   implements i_send
 {
   void send(void)
   {
+    int val;
+    val = 0x01 & intr_clr;
     intr = 1;
-    waitfor(5000);
+//printf("Slave sync high\n");
+//    waitfor(5000);
+//    wait intr_clr;
+    while(val != 1) { val = 0x01 & intr_clr; waitfor(1000);}
+//printf("Slave sync low\n");
     intr = 0;
   }
 };
@@ -268,7 +286,8 @@ interface IMasterHardwareBus
   void MasterRead(unsigned bit[ADDR_WIDTH-1:0] addr, void *data, unsigned long len);
   void MasterWrite(unsigned bit[ADDR_WIDTH-1:0] addr, const void* data, unsigned long len);
   
-  void MasterSyncReceive();
+  void MasterSync0Receive();
+  void MasterSync1Receive();
 };
   
 interface ISlaveHardwareBus
@@ -276,7 +295,8 @@ interface ISlaveHardwareBus
   void SlaveRead(unsigned bit[ADDR_WIDTH-1:0] addr, void *data, unsigned long len);
   void SlaveWrite(unsigned bit[ADDR_WIDTH-1:0] addr, const void* data, unsigned long len);
   
-  void SlaveSyncSend();
+  void SlaveSync0Send();
+  void SlaveSync1Send();
 };
 
 
@@ -293,12 +313,14 @@ channel HardwareBus()
   // interrupts
   signal unsigned bit[1]    int0 = 0;
   signal unsigned bit[1]    int1 = 0;
+  signal unsigned bit[1]    int_clr0 = 0;
+  signal unsigned bit[1]    int_clr1 = 0;
 
-  MasterHardwareSyncDetect  MasterSync0(int0);
-  SlaveHardwareSyncGenerate SlaveSync0(int0);
+  MasterHardwareSyncDetect  MasterSync0(int0, int_clr0);
+  SlaveHardwareSyncGenerate SlaveSync0(int0, int_clr0);
 
-  MasterHardwareSyncDetect  MasterSync1(int1);
-  SlaveHardwareSyncGenerate SlaveSync1(int1);
+  MasterHardwareSyncDetect  MasterSync1(int1, int_clr1);
+  SlaveHardwareSyncGenerate SlaveSync1(int1, int_clr1);
   
   MasterHardwareBus Master(A, D, ready, ack);
   SlaveHardwareBus  Slave(A, D, ready, ack);
@@ -337,5 +359,65 @@ channel HardwareBus()
   
   void SlaveSync1Send() {
     SlaveSync1.send();
+  }
+};
+
+channel MasterDriver(IMasterHardwareBus bus, const int address) implements i_sender, i_receiver
+{
+  void send(const void *d, unsigned long l) {
+//printf("master %d, send start\n", address);
+    if (address == 0) {
+      bus.MasterSync0Receive();
+//printf("master %d, send between\n", address);
+      bus.MasterWrite(address, d, l); 
+    } else { // address == 1 
+      bus.MasterSync1Receive();
+//printf("master %d, send between\n", address);
+      bus.MasterWrite(address, d, l);
+    }
+//printf("master %d, send end\n", address);
+  }
+  void receive(void *d, unsigned long l) {
+//printf("master %d, receive start\n", address);
+    if (address == 0) {
+      bus.MasterSync0Receive();
+//printf("master %d, receive between\n", address);
+      bus.MasterRead(address, d, l); 
+    } else { // address == 1 
+      bus.MasterSync1Receive();
+//printf("master %d, receive between\n", address);
+      bus.MasterRead(address, d, l);
+    }
+//printf("master %d, receive end\n", address);
+  }
+};
+
+channel SlaveDriver(ISlaveHardwareBus bus, const int address) implements i_sender, i_receiver
+{
+  void send(const void *d, unsigned long l) {
+//printf("slave %d, send start\n", address);
+    if (address == 0) {
+      bus.SlaveSync0Send();
+//printf("slave %d, send between\n", address);
+      bus.SlaveWrite(address, d, l); 
+    } else { // address == 1 
+      bus.SlaveSync1Send();
+//printf("slave %d, send between\n", address);
+      bus.SlaveWrite(address, d, l);
+    }
+//printf("slave %d, send end\n", address);
+  }
+  void receive(void *d, unsigned long l) {
+//printf("slave %d, receive start\n", address);
+    if (address == 0) {
+      bus.SlaveSync0Send();
+//printf("slave %d, receive between\n", address);
+      bus.SlaveRead(address, d, l); 
+    } else { // address == 1 
+      bus.SlaveSync1Send();
+//printf("slave %d, receive between\n", address);
+      bus.SlaveRead(address, d, l);
+    }
+//printf("slave %d, receive end\n", address);
   }
 };
