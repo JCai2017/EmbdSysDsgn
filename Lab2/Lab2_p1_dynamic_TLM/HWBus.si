@@ -1,0 +1,1287 @@
+# 1 "HWBus.sc"
+# 1 "/home/ecelrc/students/atung/ee382n_system/EmbdSysDsgn/Lab2/Lab2_p1_dynamic_TLM//"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "HWBus.sc"
+
+
+
+# 1 "/usr/include/stdio.h" 1 3 4
+# 28 "/usr/include/stdio.h" 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/features.h" 1 3 4
+# 17 "/usr/local/packages/sce-20170901/inc/features.h" 3 4
+# 1 "/usr/include/features.h" 1 3 4
+# 361 "/usr/include/features.h" 3 4
+# 1 "/usr/include/sys/cdefs.h" 1 3 4
+# 373 "/usr/include/sys/cdefs.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 374 "/usr/include/sys/cdefs.h" 2 3 4
+# 362 "/usr/include/features.h" 2 3 4
+# 385 "/usr/include/features.h" 3 4
+# 1 "/usr/include/gnu/stubs.h" 1 3 4
+
+
+
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 5 "/usr/include/gnu/stubs.h" 2 3 4
+
+
+
+
+# 1 "/usr/include/gnu/stubs-64.h" 1 3 4
+# 10 "/usr/include/gnu/stubs.h" 2 3 4
+# 386 "/usr/include/features.h" 2 3 4
+# 17 "/usr/local/packages/sce-20170901/inc/features.h" 2 3 4
+# 29 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 1 3 4
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3 4
+typedef long unsigned int size_t;
+# 35 "/usr/include/stdio.h" 2 3 4
+
+# 1 "/usr/include/bits/types.h" 1 3 4
+# 27 "/usr/include/bits/types.h" 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/features.h" 1 3 4
+# 28 "/usr/include/bits/types.h" 2 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/bits/types.h" 2 3 4
+
+
+typedef unsigned char __u_char;
+typedef unsigned short int __u_short;
+typedef unsigned int __u_int;
+typedef unsigned long int __u_long;
+
+
+typedef signed char __int8_t;
+typedef unsigned char __uint8_t;
+typedef signed short int __int16_t;
+typedef unsigned short int __uint16_t;
+typedef signed int __int32_t;
+typedef unsigned int __uint32_t;
+
+typedef signed long int __int64_t;
+typedef unsigned long int __uint64_t;
+
+
+
+
+
+
+
+typedef long int __quad_t;
+typedef unsigned long int __u_quad_t;
+# 131 "/usr/include/bits/types.h" 3 4
+# 1 "/usr/include/bits/typesizes.h" 1 3 4
+# 132 "/usr/include/bits/types.h" 2 3 4
+
+
+typedef unsigned long int __dev_t;
+typedef unsigned int __uid_t;
+typedef unsigned int __gid_t;
+typedef unsigned long int __ino_t;
+typedef unsigned long int __ino64_t;
+typedef unsigned int __mode_t;
+typedef unsigned long int __nlink_t;
+typedef long int __off_t;
+typedef long int __off64_t;
+typedef int __pid_t;
+typedef struct { int __val[2]; } __fsid_t;
+typedef long int __clock_t;
+typedef unsigned long int __rlim_t;
+typedef unsigned long int __rlim64_t;
+typedef unsigned int __id_t;
+typedef long int __time_t;
+typedef unsigned int __useconds_t;
+typedef long int __suseconds_t;
+
+typedef int __daddr_t;
+typedef long int __swblk_t;
+typedef int __key_t;
+
+
+typedef int __clockid_t;
+
+
+typedef void * __timer_t;
+
+
+typedef long int __blksize_t;
+
+
+
+
+typedef long int __blkcnt_t;
+typedef long int __blkcnt64_t;
+
+
+typedef unsigned long int __fsblkcnt_t;
+typedef unsigned long int __fsblkcnt64_t;
+
+
+typedef unsigned long int __fsfilcnt_t;
+typedef unsigned long int __fsfilcnt64_t;
+
+typedef long int __ssize_t;
+
+
+
+typedef __off64_t __loff_t;
+typedef __quad_t *__qaddr_t;
+typedef char *__caddr_t;
+
+
+typedef long int __intptr_t;
+
+
+typedef unsigned int __socklen_t;
+# 37 "/usr/include/stdio.h" 2 3 4
+# 45 "/usr/include/stdio.h" 3 4
+struct _IO_FILE;
+
+
+
+typedef struct _IO_FILE FILE;
+
+
+
+
+
+# 65 "/usr/include/stdio.h" 3 4
+typedef struct _IO_FILE __FILE;
+# 75 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/libio.h" 1 3 4
+# 32 "/usr/include/libio.h" 3 4
+# 1 "/usr/include/_G_config.h" 1 3 4
+# 15 "/usr/include/_G_config.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 1 3 4
+# 16 "/usr/include/_G_config.h" 2 3 4
+
+
+
+
+# 1 "/usr/include/wchar.h" 1 3 4
+# 83 "/usr/include/wchar.h" 3 4
+typedef struct
+{
+  int __count;
+  union
+  {
+
+    unsigned int __wch;
+
+
+
+    char __wchb[4];
+  } __value;
+} __mbstate_t;
+# 21 "/usr/include/_G_config.h" 2 3 4
+
+typedef struct
+{
+  __off_t __pos;
+  __mbstate_t __state;
+} _G_fpos_t;
+typedef struct
+{
+  __off64_t __pos;
+  __mbstate_t __state;
+} _G_fpos64_t;
+# 53 "/usr/include/_G_config.h" 3 4
+typedef int _G_int16_t ;
+typedef int _G_int32_t ;
+typedef unsigned int _G_uint16_t ;
+typedef unsigned int _G_uint32_t ;
+# 33 "/usr/include/libio.h" 2 3 4
+# 53 "/usr/include/libio.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stdarg.h" 1 3 4
+# 40 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stdarg.h" 3 4
+typedef void* __gnuc_va_list;
+# 54 "/usr/include/libio.h" 2 3 4
+# 170 "/usr/include/libio.h" 3 4
+struct _IO_jump_t; struct _IO_FILE;
+# 180 "/usr/include/libio.h" 3 4
+typedef void _IO_lock_t;
+
+
+
+
+
+struct _IO_marker {
+  struct _IO_marker *_next;
+  struct _IO_FILE *_sbuf;
+
+
+
+  int _pos;
+# 203 "/usr/include/libio.h" 3 4
+};
+
+
+enum __codecvt_result
+{
+  __codecvt_ok,
+  __codecvt_partial,
+  __codecvt_error,
+  __codecvt_noconv
+};
+# 271 "/usr/include/libio.h" 3 4
+struct _IO_FILE {
+  int _flags;
+
+
+
+
+  char* _IO_read_ptr;
+  char* _IO_read_end;
+  char* _IO_read_base;
+  char* _IO_write_base;
+  char* _IO_write_ptr;
+  char* _IO_write_end;
+  char* _IO_buf_base;
+  char* _IO_buf_end;
+
+  char *_IO_save_base;
+  char *_IO_backup_base;
+  char *_IO_save_end;
+
+  struct _IO_marker *_markers;
+
+  struct _IO_FILE *_chain;
+
+  int _fileno;
+
+
+
+  int _flags2;
+
+  __off_t _old_offset;
+
+
+
+  unsigned short _cur_column;
+  signed char _vtable_offset;
+  char _shortbuf[1];
+
+
+
+  _IO_lock_t *_lock;
+# 319 "/usr/include/libio.h" 3 4
+  __off64_t _offset;
+# 328 "/usr/include/libio.h" 3 4
+  void *__pad1;
+  void *__pad2;
+  void *__pad3;
+  void *__pad4;
+  size_t __pad5;
+
+  int _mode;
+
+  char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
+
+};
+
+
+typedef struct _IO_FILE _IO_FILE;
+
+
+struct _IO_FILE_plus;
+
+extern struct _IO_FILE_plus _IO_2_1_stdin_;
+extern struct _IO_FILE_plus _IO_2_1_stdout_;
+extern struct _IO_FILE_plus _IO_2_1_stderr_;
+# 364 "/usr/include/libio.h" 3 4
+typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
+
+
+
+
+
+
+
+typedef __ssize_t __io_write_fn (void *__cookie, const char *__buf,
+     size_t __n);
+
+
+
+
+
+
+
+typedef int __io_seek_fn (void *__cookie, __off64_t *__pos, int __w);
+
+
+typedef int __io_close_fn (void *__cookie);
+# 416 "/usr/include/libio.h" 3 4
+extern int __underflow (_IO_FILE *);
+extern int __uflow (_IO_FILE *);
+extern int __overflow (_IO_FILE *, int);
+# 460 "/usr/include/libio.h" 3 4
+extern int _IO_getc (_IO_FILE *__fp);
+extern int _IO_putc (int __c, _IO_FILE *__fp);
+extern int _IO_feof (_IO_FILE *__fp) ;
+extern int _IO_ferror (_IO_FILE *__fp) ;
+
+extern int _IO_peekc_locked (_IO_FILE *__fp);
+
+
+
+
+
+extern void _IO_flockfile (_IO_FILE *) ;
+extern void _IO_funlockfile (_IO_FILE *) ;
+extern int _IO_ftrylockfile (_IO_FILE *) ;
+# 490 "/usr/include/libio.h" 3 4
+extern int _IO_vfscanf (_IO_FILE * , const char * ,
+   __gnuc_va_list, int *);
+extern int _IO_vfprintf (_IO_FILE *, const char *,
+    __gnuc_va_list);
+extern __ssize_t _IO_padn (_IO_FILE *, int, __ssize_t);
+extern size_t _IO_sgetn (_IO_FILE *, void *, size_t);
+
+extern __off64_t _IO_seekoff (_IO_FILE *, __off64_t, int, int);
+extern __off64_t _IO_seekpos (_IO_FILE *, __off64_t, int);
+
+extern void _IO_free_backup_area (_IO_FILE *) ;
+# 76 "/usr/include/stdio.h" 2 3 4
+# 109 "/usr/include/stdio.h" 3 4
+
+
+typedef _G_fpos_t fpos_t;
+
+
+
+
+# 161 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/bits/stdio_lim.h" 1 3 4
+# 162 "/usr/include/stdio.h" 2 3 4
+
+
+
+extern struct _IO_FILE *stdin;
+extern struct _IO_FILE *stdout;
+extern struct _IO_FILE *stderr;
+
+
+
+
+
+
+
+
+
+extern int remove (const char *__filename) ;
+
+extern int rename (const char *__old, const char *__new) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern FILE *tmpfile (void) ;
+# 208 "/usr/include/stdio.h" 3 4
+extern char *tmpnam (char *__s) ;
+
+
+
+
+
+extern char *tmpnam_r (char *__s) ;
+# 226 "/usr/include/stdio.h" 3 4
+extern char *tempnam (const char *__dir, const char *__pfx)
+     ;
+
+
+
+
+
+
+
+
+extern int fclose (FILE *__stream);
+
+
+
+
+extern int fflush (FILE *__stream);
+
+# 251 "/usr/include/stdio.h" 3 4
+extern int fflush_unlocked (FILE *__stream);
+# 265 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+extern FILE *fopen (const char * __filename,
+      const char * __modes) ;
+
+
+
+
+extern FILE *freopen (const char * __filename,
+        const char * __modes,
+        FILE * __stream) ;
+# 294 "/usr/include/stdio.h" 3 4
+
+# 305 "/usr/include/stdio.h" 3 4
+extern FILE *fdopen (int __fd, const char *__modes) ;
+# 328 "/usr/include/stdio.h" 3 4
+
+
+
+extern void setbuf (FILE * __stream, char * __buf) ;
+
+
+
+extern int setvbuf (FILE * __stream, char * __buf,
+      int __modes, size_t __n) ;
+
+
+
+
+
+extern void setbuffer (FILE * __stream, char * __buf,
+         size_t __size) ;
+
+
+extern void setlinebuf (FILE *__stream) ;
+
+
+
+
+
+
+
+
+extern int fprintf (FILE * __stream,
+      const char * __format, ...);
+
+
+
+
+extern int printf (const char * __format, ...);
+
+extern int sprintf (char * __s,
+      const char * __format, ...) ;
+
+
+
+
+
+extern int vfprintf (FILE * __s, const char * __format,
+       __gnuc_va_list __arg);
+
+
+
+
+extern int vprintf (const char * __format, __gnuc_va_list __arg);
+
+extern int vsprintf (char * __s, const char * __format,
+       __gnuc_va_list __arg) ;
+
+
+
+
+
+extern int snprintf (char * __s, size_t __maxlen,
+       const char * __format, ...)
+     ;
+
+extern int vsnprintf (char * __s, size_t __maxlen,
+        const char * __format, __gnuc_va_list __arg)
+     ;
+
+# 424 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern int fscanf (FILE * __stream,
+     const char * __format, ...) ;
+
+
+
+
+extern int scanf (const char * __format, ...) ;
+
+extern int sscanf (const char * __s,
+     const char * __format, ...) ;
+# 456 "/usr/include/stdio.h" 3 4
+extern int __isoc99_fscanf (FILE * __stream,
+       const char * __format, ...) ;
+extern int __isoc99_scanf (const char * __format, ...) ;
+extern int __isoc99_sscanf (const char * __s,
+       const char * __format, ...) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern int vfscanf (FILE * __s, const char * __format,
+      __gnuc_va_list __arg)
+     ;
+
+
+
+
+
+extern int vscanf (const char * __format, __gnuc_va_list __arg)
+     ;
+
+
+extern int vsscanf (const char * __s,
+      const char * __format, __gnuc_va_list __arg)
+     ;
+# 512 "/usr/include/stdio.h" 3 4
+extern int __isoc99_vfscanf (FILE * __s,
+        const char * __format,
+        __gnuc_va_list __arg) ;
+extern int __isoc99_vscanf (const char * __format,
+       __gnuc_va_list __arg) ;
+extern int __isoc99_vsscanf (const char * __s,
+        const char * __format,
+        __gnuc_va_list __arg) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern int fgetc (FILE *__stream);
+extern int getc (FILE *__stream);
+
+
+
+
+
+extern int getchar (void);
+
+# 554 "/usr/include/stdio.h" 3 4
+extern int getc_unlocked (FILE *__stream);
+extern int getchar_unlocked (void);
+# 565 "/usr/include/stdio.h" 3 4
+extern int fgetc_unlocked (FILE *__stream);
+
+
+
+
+
+
+
+
+
+
+
+extern int fputc (int __c, FILE *__stream);
+extern int putc (int __c, FILE *__stream);
+
+
+
+
+
+extern int putchar (int __c);
+
+# 598 "/usr/include/stdio.h" 3 4
+extern int fputc_unlocked (int __c, FILE *__stream);
+
+
+
+
+
+
+
+extern int putc_unlocked (int __c, FILE *__stream);
+extern int putchar_unlocked (int __c);
+
+
+
+
+
+
+extern int getw (FILE *__stream);
+
+
+extern int putw (int __w, FILE *__stream);
+
+
+
+
+
+
+
+
+extern char *fgets (char * __s, int __n, FILE * __stream)
+     ;
+
+
+
+
+
+
+extern char *gets (char *__s) ;
+
+# 679 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern int fputs (const char * __s, FILE * __stream);
+
+
+
+
+
+extern int puts (const char *__s);
+
+
+
+
+
+
+extern int ungetc (int __c, FILE *__stream);
+
+
+
+
+
+
+extern size_t fread (void * __ptr, size_t __size,
+       size_t __n, FILE * __stream) ;
+
+
+
+
+extern size_t fwrite (const void * __ptr, size_t __size,
+        size_t __n, FILE * __s) ;
+
+# 732 "/usr/include/stdio.h" 3 4
+extern size_t fread_unlocked (void * __ptr, size_t __size,
+         size_t __n, FILE * __stream) ;
+extern size_t fwrite_unlocked (const void * __ptr, size_t __size,
+          size_t __n, FILE * __stream) ;
+
+
+
+
+
+
+
+
+extern int fseek (FILE *__stream, long int __off, int __whence);
+
+
+
+
+extern long int ftell (FILE *__stream) ;
+
+
+
+
+extern void rewind (FILE *__stream);
+
+# 768 "/usr/include/stdio.h" 3 4
+extern int fseeko (FILE *__stream, __off_t __off, int __whence);
+
+
+
+
+extern __off_t ftello (FILE *__stream) ;
+# 787 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+extern int fgetpos (FILE * __stream, fpos_t * __pos);
+
+
+
+
+extern int fsetpos (FILE *__stream, const fpos_t *__pos);
+# 810 "/usr/include/stdio.h" 3 4
+
+# 819 "/usr/include/stdio.h" 3 4
+
+
+extern void clearerr (FILE *__stream) ;
+
+extern int feof (FILE *__stream) ;
+
+extern int ferror (FILE *__stream) ;
+
+
+
+
+extern void clearerr_unlocked (FILE *__stream) ;
+extern int feof_unlocked (FILE *__stream) ;
+extern int ferror_unlocked (FILE *__stream) ;
+
+
+
+
+
+
+
+
+extern void perror (const char *__s);
+
+
+
+
+
+
+# 1 "/usr/include/bits/sys_errlist.h" 1 3 4
+# 27 "/usr/include/bits/sys_errlist.h" 3 4
+extern int sys_nerr;
+extern const char *const sys_errlist[];
+# 849 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+extern int fileno (FILE *__stream) ;
+
+
+
+
+extern int fileno_unlocked (FILE *__stream) ;
+# 868 "/usr/include/stdio.h" 3 4
+extern FILE *popen (const char *__command, const char *__modes) ;
+
+
+
+
+
+extern int pclose (FILE *__stream);
+
+
+
+
+
+extern char *ctermid (char *__s) ;
+# 908 "/usr/include/stdio.h" 3 4
+extern void flockfile (FILE *__stream) ;
+
+
+
+extern int ftrylockfile (FILE *__stream) ;
+
+
+extern void funlockfile (FILE *__stream) ;
+# 938 "/usr/include/stdio.h" 3 4
+
+# 5 "HWBus.sc" 2
+# 1 "/usr/local/packages/sce-20170901/inc/sim.sh" 1 3 4
+# 26 "/usr/local/packages/sce-20170901/inc/sim.sh" 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/sim/time.sh" 1 3 4
+# 57 "/usr/local/packages/sce-20170901/inc/sim/time.sh" 3 4
+typedef unsigned long long sim_time;
+
+typedef sim_time sim_delta;
+
+typedef char sim_time_string[20 +1];
+# 73 "/usr/local/packages/sce-20170901/inc/sim/time.sh" 3 4
+extern sim_time now(void);
+
+extern sim_delta delta(void);
+
+
+extern const char *time2str(
+ sim_time_string Buff,
+ sim_time Time);
+
+extern sim_time str2time(
+ const char *str);
+# 27 "/usr/local/packages/sce-20170901/inc/sim.sh" 2 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/sim/longlong.sh" 1 3 4
+# 41 "/usr/local/packages/sce-20170901/inc/sim/longlong.sh" 3 4
+extern char *ll2str(
+ unsigned int base,
+ char *endptr,
+ long long ll);
+
+extern char *ull2str(
+ unsigned int base,
+ char *endptr,
+ unsigned long long ull);
+
+extern long long str2ll(
+ unsigned int base,
+ const char *str);
+
+extern unsigned long long str2ull(
+ unsigned int base,
+ const char *str);
+# 28 "/usr/local/packages/sce-20170901/inc/sim.sh" 2 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/sim/bit.sh" 1 3 4
+# 42 "/usr/local/packages/sce-20170901/inc/sim/bit.sh" 3 4
+extern char *bit2str(
+ unsigned int base,
+ char *endptr,
+ ... );
+
+
+extern char *ubit2str(
+ unsigned int base,
+ char *endptr,
+ ... );
+
+extern void str2bit(
+ unsigned int base,
+ const char *str,
+ ... );
+
+extern void str2ubit(
+ unsigned int base,
+ const char *str,
+ ... );
+# 29 "/usr/local/packages/sce-20170901/inc/sim.sh" 2 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/sim/debug.sh" 1 3 4
+# 30 "/usr/local/packages/sce-20170901/inc/sim.sh" 2 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/sim/sim.sh" 1 3 4
+# 71 "/usr/local/packages/sce-20170901/inc/sim/sim.sh" 3 4
+extern unsigned long long thread_id(void);
+
+extern void sim_exit(int status);
+# 31 "/usr/local/packages/sce-20170901/inc/sim.sh" 2 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/sim/trace.sh" 1 3 4
+# 32 "/usr/local/packages/sce-20170901/inc/sim.sh" 2 3 4
+# 49 "/usr/local/packages/sce-20170901/inc/sim.sh" 3 4
+extern const int _SPECC_VERSION_MAJOR;
+extern const int _SPECC_VERSION_MINOR;
+# 6 "HWBus.sc" 2
+# 1 "/usr/include/stdint.h" 1 3 4
+# 26 "/usr/include/stdint.h" 3 4
+# 1 "/usr/local/packages/sce-20170901/inc/features.h" 1 3 4
+# 27 "/usr/include/stdint.h" 2 3 4
+# 1 "/usr/include/bits/wchar.h" 1 3 4
+# 28 "/usr/include/stdint.h" 2 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/stdint.h" 2 3 4
+# 37 "/usr/include/stdint.h" 3 4
+typedef signed char int8_t;
+typedef short int int16_t;
+typedef int int32_t;
+
+typedef long int int64_t;
+
+
+
+
+
+
+
+typedef unsigned char uint8_t;
+typedef unsigned short int uint16_t;
+
+typedef unsigned int uint32_t;
+
+
+
+typedef unsigned long int uint64_t;
+# 66 "/usr/include/stdint.h" 3 4
+typedef signed char int_least8_t;
+typedef short int int_least16_t;
+typedef int int_least32_t;
+
+typedef long int int_least64_t;
+
+
+
+
+
+
+typedef unsigned char uint_least8_t;
+typedef unsigned short int uint_least16_t;
+typedef unsigned int uint_least32_t;
+
+typedef unsigned long int uint_least64_t;
+# 91 "/usr/include/stdint.h" 3 4
+typedef signed char int_fast8_t;
+
+typedef long int int_fast16_t;
+typedef long int int_fast32_t;
+typedef long int int_fast64_t;
+# 104 "/usr/include/stdint.h" 3 4
+typedef unsigned char uint_fast8_t;
+
+typedef unsigned long int uint_fast16_t;
+typedef unsigned long int uint_fast32_t;
+typedef unsigned long int uint_fast64_t;
+# 120 "/usr/include/stdint.h" 3 4
+typedef long int intptr_t;
+
+
+typedef unsigned long int uintptr_t;
+# 135 "/usr/include/stdint.h" 3 4
+typedef long int intmax_t;
+typedef unsigned long int uintmax_t;
+# 7 "HWBus.sc" 2
+import "i_sender";
+import "i_receiver";
+import "c_handshake";
+# 29 "HWBus.sc"
+interface IMasterHardwareBusTLM
+{
+  void masterWrite(unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] d);
+  void masterRead (unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] *d);
+};
+
+interface ISlaveHardwareBusTLM
+{
+  void slaveWrite(unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] d);
+  void slaveRead (unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] *d);
+};
+
+
+channel HardwareBusTLM(unsigned bit[16u -1:0] A,
+                       unsigned bit[32u -1:0] D)
+  implements IMasterHardwareBusTLM, ISlaveHardwareBusTLM
+{
+  event ready;
+  event ack;
+
+  void masterWrite(unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] d)
+  {
+    A = a;
+    D = d;
+    waitfor(15000);
+    notify(ready);
+
+    wait(ack);
+  }
+
+  void masterRead (unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] *d)
+  {
+    A = a;
+    notify(ready);
+
+    wait(ack);
+    *d = D;
+    waitfor(20000);
+  }
+
+  void slaveWrite(unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] d)
+  {
+    wait(ready);
+
+    while( a != A) {
+      waitfor(1000);
+      wait(ready);
+    }
+    D = d;
+    waitfor(19000);
+    notify ack;
+  }
+
+  void slaveRead (unsigned bit[16u -1:0] a, unsigned bit[32u -1:0] *d)
+  {
+    wait(ready);
+
+    while(a != A){
+      waitfor(1000);
+      wait(ready);
+    }
+    *d = D;
+    waitfor(19000);
+    notify(ack);
+  }
+};
+
+
+
+channel MasterHardwareSyncDetect(i_receive intr)
+  implements i_receive
+{
+  void receive(void)
+  {
+      intr.receive();
+# 115 "HWBus.sc"
+  }
+};
+
+channel SlaveHardwareSyncGenerate(i_send intr)
+  implements i_send
+{
+  void send(void)
+  {
+    intr.send();
+# 134 "HWBus.sc"
+  }
+};
+
+
+
+
+interface IMasterHardwareBusLinkAccess
+{
+  void MasterRead(int addr, void *data, unsigned long len);
+  void MasterWrite(int addr, const void* data, unsigned long len);
+};
+
+interface ISlaveHardwareBusLinkAccess
+{
+  void SlaveRead(int addr, void *data, unsigned long len);
+  void SlaveWrite(int addr, const void* data, unsigned long len);
+};
+
+channel MasterHardwareBusLinkAccess(IMasterHardwareBusTLM tlm)
+  implements IMasterHardwareBusLinkAccess
+{
+  void MasterWrite(int addr, const void* data, unsigned long len)
+  {
+    unsigned long i;
+    unsigned char *p;
+    unsigned bit[32u -1:0] word = 0;
+
+    for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
+    {
+      word = (word<<8) + *p;
+
+      if(!((i+1)%4u)) {
+ tlm.masterWrite(addr, word);
+ word = 0;
+      }
+    }
+
+    if(i%4u) {
+      word <<= 8 * (4u - (i%4u));
+      tlm.masterWrite(addr, word);
+    }
+  }
+
+  void MasterRead(int addr, void* data, unsigned long len)
+  {
+    unsigned long i;
+    unsigned char* p;
+    unsigned bit[32u -1:0] word;
+
+    for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
+    {
+      if(!(i%4u)) {
+ tlm.masterRead(addr, &word);
+      }
+
+      *p = word[32u -1:32u -8];
+      word = word << 8;
+    }
+  }
+};
+
+channel SlaveHardwareBusLinkAccess(ISlaveHardwareBusTLM tlm)
+  implements ISlaveHardwareBusLinkAccess
+{
+  void SlaveWrite(int addr, const void* data, unsigned long len)
+  {
+    unsigned long i;
+    unsigned char *p;
+    unsigned bit[32u -1:0] word = 0;
+
+    for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
+    {
+      word = (word<<8) + *p;
+
+      if(!((i+1)%4u)) {
+ tlm.slaveWrite(addr, word);
+ word = 0;
+      }
+    }
+
+    if(i%4u) {
+      word <<= 8 * (4u - (i%4u));
+      tlm.slaveWrite(addr, word);
+    }
+  }
+
+  void SlaveRead(int addr, void* data, unsigned long len)
+  {
+    unsigned long i;
+    unsigned char* p;
+    unsigned bit[32u -1:0] word;
+
+    for(p = (unsigned char*)data, i = 0; i < len; i++, p++)
+    {
+      if(!(i%4u)) {
+ tlm.slaveRead(addr, &word);
+      }
+
+      *p = word[32u -1:32u -8];
+      word = word << 8;
+    }
+  }
+};
+
+
+
+
+
+interface IMasterHardwareBus
+{
+  void MasterRead(uint16_t addr, void *data, unsigned long len);
+  void MasterWrite(uint16_t addr, const void* data, unsigned long len);
+
+  void MasterSync0Receive();
+  void MasterSync1Receive();
+};
+
+interface ISlaveHardwareBus
+{
+  void SlaveRead(uint16_t addr, void *data, unsigned long len);
+  void SlaveWrite(uint16_t addr, const void* data, unsigned long len);
+
+  void SlaveSync0Send();
+  void SlaveSync1Send();
+};
+
+
+
+channel HardwareBus()
+  implements IMasterHardwareBus, ISlaveHardwareBus
+{
+# 277 "HWBus.sc"
+  unsigned bit[16u -1:0] A;
+  unsigned bit[32u -1:0] D;
+  c_handshake intr0;
+  c_handshake intr1;
+
+  MasterHardwareSyncDetect MasterSync0(intr0);
+  SlaveHardwareSyncGenerate SlaveSync0(intr0);
+
+  MasterHardwareSyncDetect MasterSync1(intr1);
+  SlaveHardwareSyncGenerate SlaveSync1(intr1);
+
+
+  HardwareBusTLM TLM(A, D);
+
+  MasterHardwareBusLinkAccess MasterLink(TLM);
+  SlaveHardwareBusLinkAccess SlaveLink(TLM);
+
+
+  void MasterRead(uint16_t addr, void *data, unsigned long len) {
+    MasterLink.MasterRead(addr, data, len);
+  }
+
+  void MasterWrite(uint16_t addr, const void *data, unsigned long len) {
+    MasterLink.MasterWrite(addr, data, len);
+  }
+
+  void SlaveRead(uint16_t addr, void *data, unsigned long len) {
+    SlaveLink.SlaveRead(addr, data, len);
+  }
+
+  void SlaveWrite(uint16_t addr, const void *data, unsigned long len) {
+    SlaveLink.SlaveWrite(addr, data, len);
+  }
+
+  void MasterSync0Receive() {
+    MasterSync0.receive();
+  }
+
+  void SlaveSync0Send() {
+    SlaveSync0.send();
+  }
+
+  void MasterSync1Receive() {
+    MasterSync1.receive();
+  }
+
+  void SlaveSync1Send() {
+    SlaveSync1.send();
+  }
+};
+
+channel MasterDriver(IMasterHardwareBus bus, const int address) implements i_sender, i_receiver
+{
+  void send(const void *d, unsigned long l) {
+
+    if (address == 0) {
+      bus.MasterSync0Receive();
+
+      bus.MasterWrite(address, d, l);
+    } else {
+      bus.MasterSync1Receive();
+
+      bus.MasterWrite(address, d, l);
+    }
+
+  }
+  void receive(void *d, unsigned long l) {
+
+    if (address == 0) {
+      bus.MasterSync0Receive();
+
+      bus.MasterRead(address, d, l);
+    } else {
+      bus.MasterSync1Receive();
+
+      bus.MasterRead(address, d, l);
+    }
+
+  }
+};
+
+channel SlaveDriver(ISlaveHardwareBus bus, const int address) implements i_sender, i_receiver
+{
+  void send(const void *d, unsigned long l) {
+
+    if (address == 0) {
+      bus.SlaveSync0Send();
+
+      bus.SlaveWrite(address, d, l);
+    } else {
+      bus.SlaveSync1Send();
+
+      bus.SlaveWrite(address, d, l);
+    }
+
+  }
+  void receive(void *d, unsigned long l) {
+
+    if (address == 0) {
+      bus.SlaveSync0Send();
+
+      bus.SlaveRead(address, d, l);
+    } else {
+      bus.SlaveSync1Send();
+
+      bus.SlaveRead(address, d, l);
+    }
+
+  }
+};
