@@ -9,14 +9,14 @@ behavior ReadImage(i_receive start, in uchar image_buffer[IMAGE_SIZE], /*i_uchar
 
     void main(void) {
         int i;
-//        uchar image_buffer_out[IMAGE_SIZE];
+        uchar image_buffer_out[IMAGE_SIZE];
 
         while (true) {
             start.receive();
             for (i=0; i<IMAGE_SIZE; i++)
-              out_image.send(&image_buffer[i], sizeof(char));
-//                image_buffer_out[i] = image_buffer[i];
-//            out_image.send(image_buffer_out);       
+                image_buffer_out[i] = image_buffer[i];
+//            out_image.send(&image_buffer[i], sizeof(char));
+            out_image.send(image_buffer_out, sizeof(image_buffer_out));       
         }
     }
          

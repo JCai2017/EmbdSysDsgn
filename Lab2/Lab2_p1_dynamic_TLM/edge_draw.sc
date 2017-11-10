@@ -91,10 +91,10 @@ behavior EdgeDraw_ReadInput(i_uchar7220_receiver_os in_image, i_uchar7220_receiv
 behavior EdgeDraw_WriteOutput(uchar image_buffer[IMAGE_SIZE],  i_sender out_image)
 {
     void main(void) {
-        int i;
-        for (i = 0; i < IMAGE_SIZE; i++) 
-          out_image.send(&image_buffer[i], sizeof(char));
-//        out_image.send(image_buffer);
+//        int i;
+//        for (i = 0; i < IMAGE_SIZE; i++) 
+//          out_image.send(&image_buffer[i], sizeof(char));
+        out_image.send(image_buffer, sizeof(image_buffer));
     }
 };
 

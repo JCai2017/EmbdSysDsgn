@@ -279,10 +279,10 @@ behavior SusanEdgesThread_PartB(uchar image_buffer[IMAGE_SIZE],  int r[IMAGE_SIZ
 behavior  SusanEdges_ReadInput(i_receiver in_image, uchar in_image_buffer[IMAGE_SIZE], int r[IMAGE_SIZE], uchar mid[IMAGE_SIZE]) 
 {
     void main(void) {
-        int i;
-        for (i = 0; i < IMAGE_SIZE; i++) 
-          in_image.receive(&in_image_buffer[i], sizeof(char));
-//        in_image.receive(&in_image_buffer);
+//        int i;
+//        for (i = 0; i < IMAGE_SIZE; i++) 
+//          in_image.receive(&in_image_buffer[i], sizeof(char));
+        in_image.receive(&in_image_buffer, sizeof(in_image_buffer));
         
         memset (mid,100,X_SIZE * Y_SIZE); /* note not set to zero */
         memset (r,0,X_SIZE * Y_SIZE * sizeof(int));
