@@ -307,7 +307,7 @@ channel HardwareBus()
     for(i = 0; i < len; i++){
       tmp[i] = D[i];
     }
-    waitfor(20000*len);
+    waitfor(20000*(len/4));
  
 //    MasterLink.MasterRead(addr, data, len);
   }
@@ -320,7 +320,7 @@ channel HardwareBus()
     for(i = 0; i < len; i++){
       D[i] = tmp[i];
     }
-    waitfor(15000 * len);
+    waitfor(15000 * (len/4));
     notify(ready);
 //printf("master write ready\n");
     wait(ack);
@@ -341,7 +341,7 @@ channel HardwareBus()
     for(i = 0; i < len; i++){
       tmp[i] = D[i];
     }
-    waitfor(19000 * len);
+    waitfor(19000 * (len/4));
     notify(ack);
  
 //    SlaveLink.SlaveRead(addr, data, len);
@@ -360,7 +360,7 @@ channel HardwareBus()
     for(i = 0; i < len; i++){
       D[i] = tmp[i];
     }
-    waitfor(19000 * len);
+    waitfor(19000 * (len/4));
     notify ack;
  
 //    SlaveLink.SlaveWrite(addr, data, len);
